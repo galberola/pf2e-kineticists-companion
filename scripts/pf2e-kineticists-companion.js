@@ -30,11 +30,16 @@ Hooks.on(
     }
 );
 
-// If a combatant has the thermal nimbus damage effect at the start of their turn, roll damage.
+// When a new turn begins, check if the combatant whose turn has just started is affected by Thermal Nimbus.
 Hooks.on(
-    "pf2e.startTurn",
-    async combatant => {
-        const actor = combatant.actor;
+    "combatTurnChange",
+    (encounter, previousState, currentState) => {
+        // If we've gone back a turn, skip processing
+        if (currentState.round < previousState.round || (currentState.round == previousState.round && currentState.turn < previousState.turn)) {
+            return;
+        }
+
+        const actor = encounter.combatant?.actor;
         if (!actor) {
             return;
         }
@@ -44,7 +49,7 @@ Hooks.on(
             return;
         }
 
-        applyThermalNimbusDamage(actor, combatant.token, thermalNimbusDamageEffect);
+        rollThermalNimbusDamage(thermalNimbusDamageEffect);
     }
 );
 
@@ -61,29 +66,65 @@ Hooks.on(
             return;
         }
 
-        if (game.user != actor.primaryUpdater) {
-            return;
-        }
-
         const token = actor.token;
         if (!token) {
             return;
         }
 
         if (game.combat?.current?.tokenId === token.id) {
-            applyThermalNimbusDamage(actor, token, item);
+            rollThermalNimbusDamage(item);
         }
     }
 );
 
-async function applyThermalNimbusDamage(actor, token, thermalNimbusDamageEffect) {
+Hooks.on(
+    "createChatMessage",
+    message => {
+        const flags = message.flags["pf2e-kineticists-companion"]?.["thermal-nimbus-damage"];
+        if (!flags) {
+            return;
+        }
+
+        const tokenId = flags["target-token-id"];
+        const token = game.combat?.combatants?.map(combatant => combatant.token)?.find(token => token.id === tokenId);
+        if (!token) {
+            return;
+        }
+
+        const actor = token.actor;
+        if (!actor) {
+            return;
+        }
+        
+        // Only the actor's primary updater should apply the damage
+        if (actor.primaryUpdater != game.user) {
+            return;
+        }
+
+        actor.applyDamage(
+            {
+                damage: message.rolls[0],
+                token,
+                item: message.item,
+                rollOptions: new Set(
+                    [
+                        ...message.flags?.pf2e?.context?.options?.map(option => option.replace(/^self:/, "origin:")) ?? [],
+                        ...actor.getRollOptions()
+                    ]
+                )
+            }
+        );
+    }
+)
+
+async function rollThermalNimbusDamage(thermalNimbusDamageEffect) {
     const originActor = thermalNimbusDamageEffect.origin;
     if (!originActor) {
         return;
     }
 
-    // We have to own the origin actor to post the damage
-    if (!originActor.isOwner) {
+    // The origin actor's primary updater should be posting the damage.
+    if (originActor.primaryUpdater != game.user) {
         return;
     }
 
@@ -92,13 +133,7 @@ async function applyThermalNimbusDamage(actor, token, thermalNimbusDamageEffect)
         return;
     }
 
-    const messageRollOptions = [
-        ...thermalNimbusFeat.system.traits.value,
-        ...originActor.getRollOptions(),
-        ...thermalNimbusFeat.getRollOptions("item")
-    ];
-
-    const message = await new DamageRoll(
+    new DamageRoll(
         "(floor(@actor.level/2))[@actor.flags.pf2e.kineticist.thermalNimbus]",
         {
             actor: originActor,
@@ -110,33 +145,28 @@ async function applyThermalNimbusDamage(actor, token, thermalNimbusDamageEffect)
                 speaker: ChatMessage.getSpeaker({ actor: originActor }),
                 flavor: await buildMessageFlavour(thermalNimbusFeat),
                 flags: {
-                    pf2e: {
+                    "pf2e": {
                         context: {
                             type: "damage-roll",
                             actor: originActor.id,
                             domains: ["damage"],
                             traits: thermalNimbusFeat.system.traits.value,
-                            options: messageRollOptions
+                            options: [
+                                ...thermalNimbusFeat.system.traits.value,
+                                ...originActor.getRollOptions(),
+                                ...thermalNimbusFeat.getRollOptions("item")
+                            ]
                         },
                         origin: thermalNimbusFeat.getOriginData()
+                    },
+                    "pf2e-kineticists-companion": {
+                        "thermal-nimbus-damage": {
+                            "target-token-id": thermalNimbusDamageEffect.actor.token.id
+                        }
                     }
                 }
             }
         );
-
-    actor.applyDamage(
-        {
-            damage: message.rolls[0],
-            token,
-            item: thermalNimbusFeat,
-            rollOptions: new Set(
-                [
-                    ...messageRollOptions.map(option => option.replace(/^self:/, "origin:")),
-                    ...actor.getRollOptions()
-                ]
-            )
-        }
-    );
 }
 
 async function buildMessageFlavour(thermalNimbusFeat) {
