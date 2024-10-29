@@ -1,0 +1,108 @@
+{
+  "name": "Fresh Produce",
+  "type": "consumable",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>This has been created by @UUID[Compendium.pf2e.feats-srd.IcAEMf94XoTvtzAO]{Fresh Produce}. You can eat it with an Interact action to regain @Damage[((floor((max(1,@item.level)-1)/2)+1)d4+(floor((max(1,@item.level)-1)/2)*5+1))[vitality,healing]] HP; this is a healing vitality effect. You feel full for 10 minutes, during which you have resistance to void damage and can't eat another piece of produce.</p><p>@UUID[Compendium.pf2e.feat-effects.Item.2GWZgsvMJF9DN0DO]{Effect: Fresh Produce}</p>"
+    },
+    "rules": [],
+    "slug": "fresh-produce",
+    "_migration": {
+      "version": 0.933,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "consumable",
+        "healing",
+        "primal",
+        "vitality",
+        "wood"
+      ],
+      "rarity": "common"
+    },
+    "publication": {
+      "title": "Pathfinder Rage of Elements",
+      "authors": "",
+      "license": "OGL",
+      "remaster": false
+    },
+    "level": {
+      "value": 1
+    },
+    "quantity": 1,
+    "baseItem": null,
+    "bulk": {
+      "value": 0.1
+    },
+    "hp": {
+      "value": 0,
+      "max": 0
+    },
+    "hardness": 0,
+    "price": {
+      "value": {}
+    },
+    "equipped": {
+      "carryType": "worn"
+    },
+    "containerId": null,
+    "size": "med",
+    "material": {
+      "type": null,
+      "grade": null
+    },
+    "identification": {
+      "status": "identified",
+      "unidentified": {
+        "name": "Unusual Object",
+        "img": "systems/pf2e/icons/unidentified_item_icons/other-consumables.webp",
+        "data": {
+          "description": {
+            "value": ""
+          }
+        }
+      },
+      "misidentified": {}
+    },
+    "category": "other",
+    "uses": {
+      "value": 1,
+      "max": 1,
+      "autoDestroy": true
+    },
+    "damage": {
+      "formula": "1d4+1",
+      "type": "vitality",
+      "kind": "healing"
+    },
+    "usage": {
+      "value": "held-in-one-hand"
+    },
+    "stackGroup": null,
+    "spell": null
+  },
+  "_id": "bkoprewUGSABeh1p",
+  "img": "icons/consumables/fruit/plum-ripe-purple.webp",
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "TrPGLuiZR0lPpyh3": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "pf2e",
+    "systemVersion": "6.5.1",
+    "createdTime": 1730153883926,
+    "modifiedTime": 1730155288094,
+    "lastModifiedBy": "TrPGLuiZR0lPpyh3"
+  },
+  "_key": "!items!bkoprewUGSABeh1p"
+}

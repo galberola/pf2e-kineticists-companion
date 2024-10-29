@@ -2,7 +2,7 @@
     "id": "pf2e-kineticists-companion",
     "title": "PF2e Kineticist's Companion",
     "description": "Improve automation for Kineticists in Pathfinder 2e.",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "authors": [
         {
             "name": "JDCalvert",
@@ -23,7 +23,7 @@
     },
     "url": "https://github.com/JDCalvert/pf2e-kineticists-companion",
     "manifest": "https://github.com/JDCalvert/pf2e-kineticists-companion/releases/latest/download/module.json",
-    "download": "https://github.com/JDCalvert/pf2e-kineticists-companion/releases/download/1.0.1/pf2e-kineticists-companion.zip",
+    "download": "https://github.com/JDCalvert/pf2e-kineticists-companion/releases/download/1.1.0/pf2e-kineticists-companion.zip",
     "readme": "https://github.com/JDCalvert/pf2e-kineticists-companion",
     "bugs": "https://github.com/JDCalvert/pf2e-kineticists-companion/issues",
     "changelog": "https://github.com/JDCalvert/pf2e-kineticists-companion/blob/main/CHANGELOG.md",
@@ -37,6 +37,13 @@
             "path": "packs/effects",
             "type": "Item",
             "system": "pf2e"
+        },
+        {
+            "name": "items",
+            "label": "Items",
+            "path": "packs/items",
+            "type": "Item",
+            "system": "pf2e"
         }
     ],
     "packFolders": [
@@ -44,8 +51,16 @@
             "name": "PF2e Kineticist's Companion",
             "sorting": "a",
             "packs": [
-                "effects"
+                "effects",
+                "items"
             ]
+        }
+    ],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "lang/en.json"
         }
     ]
 }

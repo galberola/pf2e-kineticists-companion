@@ -1,3 +1,6 @@
+## 1.1.0 - 2024-10-29 (Pathfinder 2e 6.5.1)
+- Add automation for Fresh Produce.
+
 ## 1.0.1 - 2024-10-25 (Pathfinder 2e 6.5.0)
 - Improve reliability of rolling and applying Thermal Nimbus damage.
 

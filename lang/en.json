@@ -1,0 +1,8 @@
+{
+    "pf2e-kineticists-companion": {
+        "fresh-produce": {
+            "target-outside-aura": "Your current target is not inside your kinetic aura.",
+            "already-eaten": "{name} has already eaten Fresh Produce in the last ten minutes."
+        }
+    }
+}
