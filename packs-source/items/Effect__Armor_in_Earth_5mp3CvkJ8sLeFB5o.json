@@ -6,7 +6,7 @@
   "system": {
     "description": {
       "gm": "",
-      "value": ""
+      "value": "<p>Created by @UUID[Compendium.pf2e.feats-srd.Item.plEZoAyPwjAOdY4e]{Armor in Earth}.</p>"
     },
     "rules": [
       {
@@ -111,7 +111,7 @@
       "value": []
     },
     "publication": {
-      "title": "",
+      "title": "Pathfinder Rage of Elements",
       "authors": "",
       "license": "OGL",
       "remaster": false
@@ -151,7 +151,7 @@
     "systemId": "pf2e",
     "systemVersion": "6.5.1",
     "createdTime": 1730209279324,
-    "modifiedTime": 1730212072955,
+    "modifiedTime": 1730221623039,
     "lastModifiedBy": "TrPGLuiZR0lPpyh3"
   },
   "_key": "!items!5mp3CvkJ8sLeFB5o"

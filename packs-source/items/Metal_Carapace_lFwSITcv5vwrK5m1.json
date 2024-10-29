@@ -1,0 +1,103 @@
+{
+  "folder": "s91r0VJ1RaVeeken",
+  "name": "Metal Carapace",
+  "type": "armor",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>This armor was created by the @UUID[Compendium.pf2e.feats-srd.HbdOZ8YTtu8ykASc]{Metal Carapace} impulse.</p>"
+    },
+    "rules": [],
+    "slug": "metal-carapace",
+    "_migration": {
+      "version": 0.933,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "noisy"
+      ],
+      "rarity": "common"
+    },
+    "publication": {
+      "title": "Pathfinder Rage of Elements",
+      "authors": "",
+      "license": "OGL",
+      "remaster": true
+    },
+    "level": {
+      "value": 0
+    },
+    "quantity": 1,
+    "baseItem": null,
+    "bulk": {
+      "value": 2
+    },
+    "hp": {
+      "value": 0,
+      "max": 0
+    },
+    "hardness": 0,
+    "price": {
+      "value": {}
+    },
+    "equipped": {
+      "carryType": "worn",
+      "invested": null
+    },
+    "containerId": null,
+    "size": "med",
+    "material": {
+      "type": null,
+      "grade": null
+    },
+    "identification": {
+      "status": "identified",
+      "unidentified": {
+        "name": "Unusual Armor",
+        "img": "systems/pf2e/icons/unidentified_item_icons/armor.webp",
+        "data": {
+          "description": {
+            "value": ""
+          }
+        }
+      },
+      "misidentified": {}
+    },
+    "category": "medium",
+    "group": "plate",
+    "acBonus": 3,
+    "strength": 2,
+    "dexCap": 2,
+    "checkPenalty": -2,
+    "speedPenalty": -5,
+    "runes": {
+      "potency": 0,
+      "resilient": 0,
+      "property": []
+    },
+    "subitems": [],
+    "specific": null
+  },
+  "_id": "lFwSITcv5vwrK5m1",
+  "img": "icons/equipment/chest/breastplate-collared-steel-grey.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "TrPGLuiZR0lPpyh3": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "pf2e",
+    "systemVersion": "6.5.1",
+    "createdTime": 1730221673802,
+    "modifiedTime": 1730221955915,
+    "lastModifiedBy": "TrPGLuiZR0lPpyh3"
+  },
+  "_key": "!items!lFwSITcv5vwrK5m1"
+}

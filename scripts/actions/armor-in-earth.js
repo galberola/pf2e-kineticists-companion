@@ -1,63 +1,55 @@
 const ARMOR_IN_EARTH_FEAT_ID = "Compendium.pf2e.feats-srd.Item.plEZoAyPwjAOdY4e";
 const ARMOR_IN_EARTH_EFFECT_ID = "Compendium.pf2e-kineticists-companion.items.Item.5mp3CvkJ8sLeFB5o";
-const ARMOR_IN_EARTH_ITEM_ID = "Compendium.pf2e-kineticists-companion.items.Item.IITK3au9fVLTccHC";
+const ARMOR_IN_EARTH_ARMOR_ID = "Compendium.pf2e-kineticists-companion.items.Item.IITK3au9fVLTccHC";
 
 export class ArmorInEarth {
     static initialise() {
         Hooks.on(
             "preCreateChatMessage",
             message => {
-                const messageItem = message.item;
-                if (!messageItem) {
+                if (message.item?.sourceId !== ARMOR_IN_EARTH_FEAT_ID) {
                     return;
                 }
 
-                const actor = messageItem.actor;
+                const actor = message.item.actor;
                 if (!actor) {
                     return;
                 }
+                (async () => {
+                    const creates = [];
 
-                if (messageItem.sourceId === ARMOR_IN_EARTH_FEAT_ID) {
-                    (async () => {
-                        // If we already have an Armor in Earth item, copy the previous armor data from it, or if we're wearing armor, build the previous
-                        // armor data from it.
-                        let previousArmorData = null;
+                    // Delete any existing Armor in Earth effect, and create a new one
+                    await actor.itemTypes.effect.find(effect => effect.sourceId === ARMOR_IN_EARTH_EFFECT_ID)?.delete({ keepArmor: true });
 
-                        const existingArmorInEarthItem = actor.itemTypes.armor.find(effect => effect.sourceId === ARMOR_IN_EARTH_ITEM_ID);
-                        if (existingArmorInEarthItem) {
-                            previousArmorData = existingArmorInEarthItem.flags["pf2e-kineticists-companion"]?.["previous-armor"];
-                        } else if (actor.wornArmor) {
-                            previousArmorData = {
+                    creates.push((await fromUuid(ARMOR_IN_EARTH_EFFECT_ID)).toObject());
+
+                    // If we don't already have an Armor in Earth armor item, create one
+                    const existingArmorInEarthArmor = actor.itemTypes.armor.find(effect => effect.sourceId === ARMOR_IN_EARTH_ARMOR_ID);
+                    if (!existingArmorInEarthArmor) {
+                        const armorInEarthArmorSource = (await fromUuid(ARMOR_IN_EARTH_ARMOR_ID)).toObject();
+
+                        // If we are already wearing armor, remember its details so we can re-equip it when the impulse ends
+                        if (actor.wornArmor) {
+                            const previousArmorData = {
                                 "id": actor.wornArmor.id,
-                                "bulk": actor.wornArmor._source.system.bulk.value
+                                "bulk": actor.wornArmor._source.system.bulk.value,
+                                "runes": actor.wornArmor._source.system.runes
                             };
+
+                            armorInEarthArmorSource.flags["pf2e-kineticists-companion"] = { "previous-armor": previousArmorData };
+                            armorInEarthArmorSource.system.runes = previousArmorData.runes;
                         }
 
-                        // Find and delete any previous instances of Armor in Earth
-                        await actor.itemTypes.effect.find(effect => effect.sourceId === ARMOR_IN_EARTH_EFFECT_ID)?.delete();
+                        creates.push(armorInEarthArmorSource);
+                    }
 
-                        // Create the new items
-                        const armorInEarthEffectSource = (await fromUuid(ARMOR_IN_EARTH_EFFECT_ID)).toObject();
+                    const createdItems = await actor.createEmbeddedDocuments("Item", creates);
 
-                        const armorInEarthItemSource = (await fromUuid(ARMOR_IN_EARTH_ITEM_ID)).toObject();
-                        if (previousArmorData) {
-                            armorInEarthItemSource.flags["pf2e-kineticists-companion"] = {
-                                "previous-armor": previousArmorData
-                            };
-                            armorInEarthItemSource.system.runes = actor.wornArmor._source.system.runes;
-                        }
-
-                        const createdItems = await actor.createEmbeddedDocuments("Item", [armorInEarthEffectSource, armorInEarthItemSource]);
-                        
-                        // Update the armor to be equipped, and any existing armor to be unequipped
-                        const armorInEarthItem = createdItems.find(item => item.sourceId === ARMOR_IN_EARTH_ITEM_ID);
-                        if (!armorInEarthItem) {
-                            return;
-                        }
-
+                    const armorInEarthArmor = createdItems.find(item => item.sourceId === ARMOR_IN_EARTH_ARMOR_ID);
+                    if (armorInEarthArmor) {
                         const updates = [
                             {
-                                "_id": armorInEarthItem.id,
+                                "_id": armorInEarthArmor.id,
                                 "system.equipped": {
                                     "inSlot": true,
                                     "invested": true
@@ -65,6 +57,7 @@ export class ArmorInEarth {
                             }
                         ];
 
+                        const previousArmorData = armorInEarthArmor.flags["pf2e-kineticists-companion"]?.["previous-armor"];
                         if (previousArmorData) {
                             updates.push(
                                 {
@@ -78,46 +71,48 @@ export class ArmorInEarth {
                         }
 
                         actor.updateEmbeddedDocuments("Item", updates);
-                    })();
-                }
+                    }
+                })();
             }
         );
 
         Hooks.on(
             "preDeleteItem",
-            item => {
-                if (item.sourceId === ARMOR_IN_EARTH_EFFECT_ID) {
-                    const actor = item.actor;
-                    if (!actor) {
-                        return;
-                    }
-
-                    const armorInEarthItem = actor.itemTypes.armor.find(armor => armor.sourceId === ARMOR_IN_EARTH_ITEM_ID);
-                    if (!armorInEarthItem) {
-                        return;
-                    }
-
-                    armorInEarthItem.delete();
-
-                    const previousArmorData = armorInEarthItem.flags["pf2e-kineticists-companion"]?.["previous-armor"];
-                    if (!previousArmorData) {
-                        return;
-                    }
-
-                    const previousArmor = actor.itemTypes.armor.find(armor => armor.id === previousArmorData.id);
-                    if (!previousArmor) {
-                        return;
-                    }
-
-                    previousArmor.update(
-                        {
-                            "system": {
-                                "bulk.value": previousArmorData.bulk,
-                                "equipped.inSlot": true
-                            }
-                        }
-                    );
+            (item, context) => {
+                if (item.sourceId !== ARMOR_IN_EARTH_EFFECT_ID || context.keepArmor) {
+                    return;
                 }
+
+                const actor = item.actor;
+                if (!actor) {
+                    return;
+                }
+
+                const armorInEarthArmor = actor.itemTypes.armor.find(armor => armor.sourceId === ARMOR_IN_EARTH_ARMOR_ID);
+                if (!armorInEarthArmor) {
+                    return;
+                }
+
+                armorInEarthArmor.delete();
+
+                const previousArmorData = armorInEarthArmor.flags["pf2e-kineticists-companion"]?.["previous-armor"];
+                if (!previousArmorData) {
+                    return;
+                }
+
+                const previousArmor = actor.itemTypes.armor.find(armor => armor.id === previousArmorData.id);
+                if (!previousArmor) {
+                    return;
+                }
+
+                previousArmor.update(
+                    {
+                        "system": {
+                            "bulk.value": previousArmorData.bulk,
+                            "equipped.inSlot": true
+                        }
+                    }
+                );
             }
         );
     }

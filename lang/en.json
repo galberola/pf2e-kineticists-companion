@@ -1,8 +1,31 @@
 {
     "pf2e-kineticists-companion": {
+        "config": {
+            "option": {
+                "always": "Always",
+                "never": "Never",
+                "ask": "Ask Each Time"
+            },
+            "dialog": {
+                "yes": "Yes",
+                "no": "No",
+                "remember-my-answer": "Remember my answer"
+            }
+        },
         "fresh-produce": {
             "target-outside-aura": "Your current target is not inside your kinetic aura.",
             "already-eaten": "{name} has already eaten Fresh Produce in the last ten minutes."
+        },
+        "metal-carapace": {
+            "config": {
+                "name": "Create Metal Carapace shield"
+            },
+            "shield-prompt": {
+                "title": "Metal Carapace Shield",
+                "content": "Would like to create a Metal Carapace shield in your free hand?"
+            },
+            "shield-destroyed": "{name}'s Metal Carapace Shield was broken and has crumbled to flakes of rust.",
+            "armor-destroyed": "{name}'s Metal Carapace was shattered from the critical hit."
         }
     }
 }

@@ -1,0 +1,96 @@
+{
+  "folder": "s91r0VJ1RaVeeken",
+  "name": "Effect: Metal Carapace",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Created by @UUID[Compendium.pf2e.feats-srd.HbdOZ8YTtu8ykASc]{Metal Carapace}.</p>"
+    },
+    "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.proficiencies.defenses.medium.rank",
+        "value": "@actor.system.proficiencies.defenses.light.rank",
+        "predicate": [
+          "armor:metal-carapace"
+        ]
+      },
+      {
+        "key": "ItemAlteration",
+        "itemType": "shield",
+        "predicate": [
+          "item:metal-carapace-shield"
+        ],
+        "mode": "add",
+        "property": "hardness",
+        "value": "floor((@actor.level - 1) / 3)"
+      },
+      {
+        "key": "ItemAlteration",
+        "itemType": "shield",
+        "predicate": [
+          "item:metal-carapace-shield"
+        ],
+        "mode": "add",
+        "property": "hp-max",
+        "value": "floor((@actor.level - 1) / 3) * 4"
+      }
+    ],
+    "slug": "effect-metal-carapace",
+    "_migration": {
+      "version": 0.933,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "Pathfinder Rage of Elements",
+      "authors": "",
+      "license": "OGL",
+      "remaster": true
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 10,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false
+  },
+  "_id": "2Sgil2Rnze8hOAMy",
+  "img": "icons/equipment/chest/breastplate-collared-steel-grey.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "TrPGLuiZR0lPpyh3": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "pf2e",
+    "systemVersion": "6.5.1",
+    "createdTime": 1730221377436,
+    "modifiedTime": 1730238515124,
+    "lastModifiedBy": "TrPGLuiZR0lPpyh3"
+  },
+  "_key": "!items!2Sgil2Rnze8hOAMy"
+}

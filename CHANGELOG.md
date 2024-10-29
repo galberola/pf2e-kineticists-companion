@@ -1,5 +1,5 @@
 ## Unreleased
-- Add automation for Armor in Earth.
+- Add automation for Armor in Earth, Metal Carapace.
 
 ## 1.1.0 - 2024-10-29 (Pathfinder 2e 6.5.1)
 - Add automation for Fresh Produce.
