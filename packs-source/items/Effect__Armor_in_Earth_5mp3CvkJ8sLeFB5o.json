@@ -1,0 +1,158 @@
+{
+  "folder": "xloMGID4RJZoHFhx",
+  "name": "Effect: Armor in Earth",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": ""
+    },
+    "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.proficiencies.defenses.medium.rank",
+        "value": "@actor.system.proficiencies.defenses.light.rank",
+        "predicate": [
+          "armor:armor-in-earth"
+        ]
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.proficiencies.defenses.heavy.rank",
+        "value": "@actor.system.proficiencies.defenses.light.rank",
+        "predicate": [
+          {
+            "gte": [
+              "self.level",
+              3
+            ]
+          },
+          "armor:armor-in-earth"
+        ]
+      },
+      {
+        "key": "Resistance",
+        "type": "slashing",
+        "value": {
+          "brackets": [
+            {
+              "end": 2,
+              "value": "1 + @armor.system.runes.potency"
+            },
+            {
+              "start": 3,
+              "value": "2 + @armor.system.runes.potency"
+            }
+          ]
+        },
+        "predicate": [
+          "armor:armor-in-earth"
+        ]
+      },
+      {
+        "key": "ItemAlteration",
+        "itemType": "armor",
+        "mode": "override",
+        "predicate": [
+          "item:armor-in-earth",
+          {
+            "gte": [
+              "self.level",
+              3
+            ]
+          }
+        ],
+        "property": "category",
+        "value": "heavy"
+      },
+      {
+        "key": "ItemAlteration",
+        "itemType": "armor",
+        "mode": "override",
+        "predicate": [
+          "item:armor-in-earth",
+          {
+            "gte": [
+              "self.level",
+              3
+            ]
+          }
+        ],
+        "property": "ac-bonus",
+        "value": 5
+      },
+      {
+        "key": "ItemAlteration",
+        "itemType": "armor",
+        "mode": "add",
+        "predicate": [
+          "item:armor-in-earth",
+          {
+            "gte": [
+              "self.level",
+              3
+            ]
+          }
+        ],
+        "property": "traits",
+        "value": "bulwark"
+      }
+    ],
+    "slug": "effect-armor-in-earth",
+    "_migration": {
+      "version": 0.933,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "",
+      "authors": "",
+      "license": "OGL",
+      "remaster": false
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 10,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false
+  },
+  "_id": "5mp3CvkJ8sLeFB5o",
+  "img": "icons/magic/earth/construct-stone.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "TrPGLuiZR0lPpyh3": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "pf2e",
+    "systemVersion": "6.5.1",
+    "createdTime": 1730209279324,
+    "modifiedTime": 1730212072955,
+    "lastModifiedBy": "TrPGLuiZR0lPpyh3"
+  },
+  "_key": "!items!5mp3CvkJ8sLeFB5o"
+}
