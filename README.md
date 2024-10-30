@@ -27,3 +27,6 @@ automatically apply the healing and the void resistance effect.
 Any Fresh Produce items created are automatically deleted at the start of your next turn*.
 
 <small>*A gamemaster or the actor's owner must be present.</small>
+
+### Armor in Earth, Hardwood Armor, and Metal Carapace Automation
+When you use any of these actions, your armour will be replaced with the impulse's armour. You will also have an option to create a shield, if applicable - this is configurable in settings to either always create a shield (if you have a free hand), never create a shield, or ask each time. The shields are removed when they are broken, and Metal Carapace will end if you take critical hit damage.
