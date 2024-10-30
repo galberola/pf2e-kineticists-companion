@@ -15,11 +15,12 @@ export class ArmorInEarth {
                 if (!actor) {
                     return;
                 }
+
                 (async () => {
                     const creates = [];
 
                     // Delete any existing Armor in Earth effect, and create a new one
-                    await actor.itemTypes.effect.find(effect => effect.sourceId === ARMOR_IN_EARTH_EFFECT_ID)?.delete({ keepArmor: true });
+                    await actor.itemTypes.effect.find(effect => effect.sourceId === ARMOR_IN_EARTH_EFFECT_ID)?.delete({ skipDeleteArmor: true });
 
                     creates.push((await fromUuid(ARMOR_IN_EARTH_EFFECT_ID)).toObject());
 
@@ -79,7 +80,7 @@ export class ArmorInEarth {
         Hooks.on(
             "preDeleteItem",
             (item, context) => {
-                if (item.sourceId !== ARMOR_IN_EARTH_EFFECT_ID || context.keepArmor) {
+                if (item.sourceId !== ARMOR_IN_EARTH_EFFECT_ID || context.skipDeleteArmor) {
                     return;
                 }
 

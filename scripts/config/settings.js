@@ -16,5 +16,22 @@ export class Settings {
                 default: "ask"
             }
         );
+
+        game.settings.register(
+            "pf2e-kineticists-companion",
+            "hardwood-armor-shield-prompt",
+            {
+                name: game.i18n.localize("pf2e-kineticists-companion.hardwood-armor.config.name"),
+                scope: "client",
+                config: true,
+                type: String,
+                choices: {
+                    "ask": game.i18n.localize("pf2e-kineticists-companion.config.option.ask"),
+                    "always": game.i18n.localize("pf2e-kineticists-companion.config.option.always"),
+                    "never": game.i18n.localize("pf2e-kineticists-companion.config.option.never")
+                },
+                default: "ask"
+            }
+        );
     }
 }

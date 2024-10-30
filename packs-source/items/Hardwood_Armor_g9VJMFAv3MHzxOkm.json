@@ -1,24 +1,22 @@
 {
-  "folder": "s91r0VJ1RaVeeken",
-  "name": "Metal Carapace",
+  "folder": "SFzkRm2YmSV5gDzq",
+  "name": "Hardwood Armor",
   "type": "armor",
   "effects": [],
   "system": {
     "description": {
       "gm": "",
-      "value": "<p>This armor was created by the @UUID[Compendium.pf2e.feats-srd.HbdOZ8YTtu8ykASc]{Metal Carapace} impulse.</p><p>Sheets of bend and rusted metal cover you in an armored shell.</p><p>The metal is rusted and fragile. If you take damage from a critical hit, the metal shatters and the impulse ends.</p>"
+      "value": "<p>This armor was created by the @UUID[Compendium.pf2e.feats-srd.cZa6br5C3Iyzqqi9]{Hardwood Armor} impulse.</p><p>Wood and bark grow over your body like armor.</p>"
     },
     "rules": [],
-    "slug": "metal-carapace",
+    "slug": "hardwood-armor",
     "_migration": {
       "version": 0.933,
       "lastMigration": null
     },
     "traits": {
       "otherTags": [],
-      "value": [
-        "noisy"
-      ],
+      "value": [],
       "rarity": "common"
     },
     "publication": {
@@ -33,7 +31,7 @@
     "quantity": 1,
     "baseItem": null,
     "bulk": {
-      "value": 2
+      "value": 1
     },
     "hp": {
       "value": 0,
@@ -67,11 +65,11 @@
       "misidentified": {}
     },
     "category": "medium",
-    "group": "plate",
+    "group": "wood",
     "acBonus": 3,
     "strength": 2,
     "dexCap": 2,
-    "checkPenalty": -2,
+    "checkPenalty": -1,
     "speedPenalty": -5,
     "runes": {
       "potency": 0,
@@ -81,8 +79,8 @@
     "subitems": [],
     "specific": null
   },
-  "_id": "lFwSITcv5vwrK5m1",
-  "img": "icons/equipment/chest/breastplate-collared-steel-grey.webp",
+  "_id": "g9VJMFAv3MHzxOkm",
+  "img": "icons/equipment/chest/breastplate-collared-leather-brown.webp",
   "sort": 0,
   "ownership": {
     "default": 0,
@@ -95,9 +93,9 @@
     "coreVersion": "12.331",
     "systemId": "pf2e",
     "systemVersion": "6.5.1",
-    "createdTime": 1730221673802,
-    "modifiedTime": 1730242523013,
+    "createdTime": 1730242436447,
+    "modifiedTime": 1730243835578,
     "lastModifiedBy": "TrPGLuiZR0lPpyh3"
   },
-  "_key": "!items!lFwSITcv5vwrK5m1"
+  "_key": "!items!g9VJMFAv3MHzxOkm"
 }

@@ -26,6 +26,16 @@
             },
             "shield-destroyed": "{name}'s Metal Carapace Shield was broken and has crumbled to flakes of rust.",
             "armor-destroyed": "{name}'s Metal Carapace was shattered from the critical hit."
+        },
+        "hardwood-armor": {
+            "config": {
+                "name": "Create Hardwood Shield"
+            },
+            "shield-prompt": {
+                "title": "Hardwood Armor Shield",
+                "content": "Would you like to create a wooden shield in your free hand?"
+            },
+            "shield-destroyed": "{name}'s wooden shield was broken and has decayed."
         }
     }
 }

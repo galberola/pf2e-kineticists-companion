@@ -1,18 +1,18 @@
 import { DialogPrompt } from "../utils/prompt-dialog.js";
 
-const METAL_CARAPACE_FEAT_ID = "Compendium.pf2e.feats-srd.Item.HbdOZ8YTtu8ykASc";
-const METAL_CARAPACE_EFFECT_ID = "Compendium.pf2e-kineticists-companion.items.Item.2Sgil2Rnze8hOAMy";
-const METAL_CARAPACE_ARMOR_ID = "Compendium.pf2e-kineticists-companion.items.Item.lFwSITcv5vwrK5m1";
-const METAL_CARAPACE_SHIELD_ID = "Compendium.pf2e-kineticists-companion.items.Item.rkP9Mj9bViIIT7cX";
+const HARDWOOD_ARMOR_FEAT_ID = "Compendium.pf2e.feats-srd.Item.cZa6br5C3Iyzqqi9";
+const HARDWOOD_ARMOR_EFFECT_ID = "Compendium.pf2e-kineticists-companion.items.Item.T5eTAW1TOgDO3Kec";
+const HARDWOOD_ARMOR_ARMOR_ID = "Compendium.pf2e-kineticists-companion.items.Item.g9VJMFAv3MHzxOkm";
+const WOODEN_SHIELD_ID = "Compendium.pf2e.equipment-srd.Item.ezVp13Uw8cWW08Da";
 
-const localize = (key, data) => game.i18n.format("pf2e-kineticists-companion.metal-carapace." + key, data);
+const localize = (key, data) => game.i18n.format("pf2e-kineticists-companion.hardwood-armor." + key, data);
 
-export class MetalCarapace {
+export class HardwoodArmor {
     static initialise() {
         Hooks.on(
             "preCreateChatMessage",
             message => {
-                if (message.item?.sourceId === METAL_CARAPACE_FEAT_ID) {
+                if (message.item?.sourceId === HARDWOOD_ARMOR_FEAT_ID) {
                     const actor = message.item.actor;
                     if (!actor) {
                         return;
@@ -21,16 +21,16 @@ export class MetalCarapace {
                     (async () => {
                         const creates = [];
 
-                        // Delete any existing Metal Carapace effect, and create a new one
-                        await actor.itemTypes.shield.find(shield => shield.sourceId === METAL_CARAPACE_SHIELD_ID)?.delete();
-                        await actor.itemTypes.effect.find(effect => effect.sourceId === METAL_CARAPACE_EFFECT_ID)?.delete({ skipDeleteArmor: true });
+                        // Delete any existing Hardwood Armor effect, and create a new one
+                        await actor.itemTypes.shield.find(shield => shield.slug === "hardwood-shield")?.delete();
+                        await actor.itemTypes.effect.find(effect => effect.sourceId === HARDWOOD_ARMOR_EFFECT_ID)?.delete({ skipDeleteArmor: true });
 
-                        creates.push((await fromUuid(METAL_CARAPACE_EFFECT_ID)).toObject());
+                        creates.push((await fromUuid(HARDWOOD_ARMOR_EFFECT_ID)).toObject());
 
-                        // If we don't already have a Metal Carapace armor item, create one
-                        const existingMetalCarapaceArmor = actor.itemTypes.armor.find(armor => armor.sourceId === METAL_CARAPACE_ARMOR_ID);
-                        if (!existingMetalCarapaceArmor) {
-                            const metalCarapaceArmorSource = (await fromUuid(METAL_CARAPACE_ARMOR_ID)).toObject();
+                        // If we don't already have a Hardwood Armor item, create one
+                        const existingHardwoodArmor = actor.itemTypes.armor.find(armor => armor.sourceId === HARDWOOD_ARMOR_ARMOR_ID);
+                        if (!existingHardwoodArmor) {
+                            const hardwoodArmorSource = (await fromUuid(HARDWOOD_ARMOR_ARMOR_ID)).toObject();
 
                             if (actor.wornArmor) {
                                 const previousArmorData = {
@@ -39,28 +39,31 @@ export class MetalCarapace {
                                     "runes": actor.wornArmor._source.system.runes
                                 };
 
-                                metalCarapaceArmorSource.flags["pf2e-kineticists-companion"] = { "previous-armor": previousArmorData };
-                                metalCarapaceArmorSource.system.runes = previousArmorData.runes;
+                                hardwoodArmorSource.flags["pf2e-kineticists-companion"] = { "previous-armor": previousArmorData };
+                                hardwoodArmorSource.system.runes = previousArmorData.runes;
                             }
 
-                            creates.push(metalCarapaceArmorSource);
+                            creates.push(hardwoodArmorSource);
                         }
 
                         const createShield = await this.#shouldCreateShield(actor);
                         if (createShield) {
-                            creates.push((await fromUuid(METAL_CARAPACE_SHIELD_ID)).toObject());
+                            const hardwoodShieldSource = (await fromUuid(WOODEN_SHIELD_ID)).toObject();
+                            hardwoodShieldSource.system.slug = "hardwood-shield";
+
+                            creates.push(hardwoodShieldSource);
                         }
 
                         const createdItems = await actor.createEmbeddedDocuments("Item", creates);
 
                         const updates = [];
 
-                        // If we created the armor, set it as worn
-                        const metalCarapaceArmor = createdItems.find(item => item.sourceId === METAL_CARAPACE_ARMOR_ID);
-                        if (metalCarapaceArmor) {
+                        // If we created hardwood armor, set it as worn
+                        const hardwoodArmor = createdItems.find(item => item.sourceId === HARDWOOD_ARMOR_ARMOR_ID);
+                        if (hardwoodArmor) {
                             updates.push(
                                 {
-                                    "_id": metalCarapaceArmor.id,
+                                    "_id": hardwoodArmor.id,
                                     "system.equipped": {
                                         "inSlot": true,
                                         "invested": true
@@ -68,7 +71,7 @@ export class MetalCarapace {
                                 }
                             );
 
-                            const previousArmorData = metalCarapaceArmor.flags["pf2e-kineticists-companion"]?.["previous-armor"];
+                            const previousArmorData = hardwoodArmor.flags["pf2e-kineticists-companion"]?.["previous-armor"];
                             if (previousArmorData) {
                                 updates.push(
                                     {
@@ -82,18 +85,17 @@ export class MetalCarapace {
                             }
                         }
 
-                        // If we created the shield, set it as held
-                        const metalCarapaceShield = createdItems.find(item => item.sourceId === METAL_CARAPACE_SHIELD_ID);
-                        if (metalCarapaceShield) {
+                        const hardwoodShield = createdItems.find(item => item.sourceId === WOODEN_SHIELD_ID);
+                        if (hardwoodShield) {
                             updates.push(
                                 {
-                                    "_id": metalCarapaceShield.id,
+                                    "_id": hardwoodShield.id,
                                     "system": {
                                         "equipped": {
                                             "carryType": "held",
                                             "handsHeld": 1
                                         },
-                                        "hp.value": metalCarapaceShield.system.hp.max
+                                        "hp.value": hardwoodShield.system.hp.max
                                     }
                                 }
                             );
@@ -103,23 +105,6 @@ export class MetalCarapace {
                             actor.updateEmbeddedDocuments("Item", updates);
                         }
                     })();
-
-                    return;
-                }
-
-                // If we take damage from a critical hit, Metal Carapace ends
-                const context = message.flags.pf2e?.context;
-                if (context?.type === "damage-taken" && context?.options?.includes("check:outcome:critical-success")) {
-                    const actor = message.actor;
-                    if (!actor) {
-                        return;
-                    }
-
-                    const metalCarapaceEffect = actor.itemTypes.effect.find(effect => effect.sourceId === METAL_CARAPACE_EFFECT_ID);
-                    if (metalCarapaceEffect) {
-                        metalCarapaceEffect.delete();
-                        this.#postToChat(actor, "armor-destroyed", metalCarapaceEffect.img);
-                    }
                 }
             }
         );
@@ -127,7 +112,7 @@ export class MetalCarapace {
         Hooks.on(
             "preDeleteItem",
             (item, context) => {
-                if (item.sourceId !== METAL_CARAPACE_EFFECT_ID) {
+                if (item.sourceId !== HARDWOOD_ARMOR_EFFECT_ID) {
                     return;
                 }
 
@@ -139,12 +124,11 @@ export class MetalCarapace {
                 const deletes = [];
 
                 if (!context.skipDeleteArmor) {
-                    const metalCarapaceArmor = actor.itemTypes.armor.find(armor => armor.sourceId === METAL_CARAPACE_ARMOR_ID);
-                    if (metalCarapaceArmor) {
-                        deletes.push(metalCarapaceArmor.id);
+                    const hardwoodArmor = actor.itemTypes.armor.find(armor => armor.sourceId === HARDWOOD_ARMOR_ARMOR_ID);
+                    if (hardwoodArmor) {
+                        deletes.push(hardwoodArmor.id);
 
-                        // Re-equip the previous armor
-                        const previousArmorData = metalCarapaceArmor.flags["pf2e-kineticists-companion"]?.["previous-armor"];
+                        const previousArmorData = hardwoodArmor.flags["pf2e-kineticists-companion"]?.["previous-armor"];
                         if (previousArmorData) {
                             actor.itemTypes.armor.find(armor => armor.id === previousArmorData.id)?.update(
                                 {
@@ -158,9 +142,9 @@ export class MetalCarapace {
                     }
                 }
 
-                const metalCarapaceShield = actor.itemTypes.shield.find(shield => shield.sourceId === METAL_CARAPACE_SHIELD_ID);
-                if (metalCarapaceShield) {
-                    deletes.push(metalCarapaceShield.id);
+                const hardwoodShield = actor.itemTypes.shield.find(shield => shield.slug === "hardwood-shield");
+                if (hardwoodShield) {
+                    deletes.push(hardwoodShield.id);
                 }
 
                 if (deletes.length) {
@@ -172,7 +156,7 @@ export class MetalCarapace {
         Hooks.on(
             "preUpdateItem",
             (item, update) => {
-                if (item.sourceId !== METAL_CARAPACE_SHIELD_ID) {
+                if (item.slug !== "hardwood-shield") {
                     return;
                 }
 
@@ -197,7 +181,7 @@ export class MetalCarapace {
             return false;
         }
 
-        const createShieldSetting = game.settings.get("pf2e-kineticists-companion", "metal-carapace-shield-prompt");
+        const createShieldSetting = game.settings.get("pf2e-kineticists-companion", "hardwood-armor-shield-prompt");
         if (createShieldSetting === "always") {
             return true;
         } else if (createShieldSetting === "never") {
@@ -207,7 +191,7 @@ export class MetalCarapace {
         const response = await DialogPrompt.prompt(localize("shield-prompt.title"), localize("shield-prompt.content"));
 
         if (response.remember) {
-            game.settings.set("pf2e-kineticists-companion", "metal-carapace-shield-prompt", response.answer ? "always" : "never");
+            game.settings.set("pf2e-kineticists-companion", "hardwood-armor-shield-prompt", response.answer ? "always" : "never");
         }
 
         return response.answer;
@@ -230,4 +214,4 @@ export class MetalCarapace {
             }
         );
     }
-} 
+}
