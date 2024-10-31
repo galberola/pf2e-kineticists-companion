@@ -87,8 +87,8 @@
   },
   "_id": "bkoprewUGSABeh1p",
   "img": "icons/consumables/fruit/plum-ripe-purple.webp",
-  "folder": null,
-  "sort": 0,
+  "folder": "AGMTzAOWqILelR0O",
+  "sort": 100000,
   "ownership": {
     "default": 0,
     "TrPGLuiZR0lPpyh3": 3
@@ -101,7 +101,7 @@
     "systemId": "pf2e",
     "systemVersion": "6.5.1",
     "createdTime": 1730153883926,
-    "modifiedTime": 1730155288094,
+    "modifiedTime": 1730298102765,
     "lastModifiedBy": "TrPGLuiZR0lPpyh3"
   },
   "_key": "!items!bkoprewUGSABeh1p"

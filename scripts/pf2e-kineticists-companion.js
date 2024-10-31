@@ -5,21 +5,22 @@ import { ThermalNimbus } from "./actions/thermal-nimbus.js";
 import { MetalCarapace } from "./actions/metal-carapace.js";
 import { HardwoodArmor } from "./actions/hardwood-armor.js";
 
-export let DamageRoll = null;
-
 Hooks.on(
     "init",
     () => {
-        DamageRoll = CONFIG.Dice.rolls.find((r) => r.name === "DamageRoll");
-
         Settings.initialise();
 
+        // Earth
+        ArmorInEarth.initialise();
+
+        // Fire
         ThermalNimbus.initialise();
 
-        FreshProduce.initialise();
-
-        ArmorInEarth.initialise();
-        HardwoodArmor.initialise();
+        // Metal
         MetalCarapace.initialise();
+
+        // Wood
+        FreshProduce.initialise();
+        HardwoodArmor.initialise();
     }
 );

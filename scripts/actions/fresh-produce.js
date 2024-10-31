@@ -89,54 +89,58 @@ export class FreshProduce {
         Hooks.on(
             "createChatMessage",
             async message => {
-                const messageItem = message.item;
-                if (!messageItem) {
-                    return;
-                }
-
                 // When the Fresh Produce feat is posted, create a Fresh Produce item in the target's inventory
-                if (messageItem.sourceId === FRESH_PRODUCE_FEAT_ID) {
-                    const sourceActor = messageItem.actor;
+                if (message.item?.sourceId === FRESH_PRODUCE_FEAT_ID) {
+                    const sourceActor = message.item.actor;
                     if (!sourceActor) {
                         return;
                     }
 
                     const targetActor = message.author.targets.first()?.actor ?? sourceActor;
-                    if (!targetActor || targetActor.primaryUpdater != game.user) {
+                    if (!targetActor) {
                         return;
                     }
 
-                    const freshProduceSource = (await fromUuid(FRESH_PRODUCE_ITEM_ID)).toObject();
-                    freshProduceSource.system.level.value = sourceActor.level;
-                    freshProduceSource.system.damage.formula = `${Math.ceil(sourceActor.level / 2)}d4+${Math.floor(sourceActor.level / 2) * 5 + 1}`;
-                    freshProduceSource.flags["pf2e-kineticists-companion"] = {
-                        "originSignature": sourceActor.signature
-                    };
-
-                    const [freshProduceItem] = await targetActor.createEmbeddedDocuments("Item", [freshProduceSource]);
-                    if (!freshProduceItem) {
-                        return;
+                    // On the source actor, record the signature of the target actor, so we can remove any Fresh Produce that's left over at the start of
+                    // our next turn.
+                    if (sourceActor.primaryUpdater == game.user) {
+                        const actorSignatures = sourceActor.flags["pf2e-kineticists-companion"]?.["fresh-produce"]?.["actor-signatures"] ?? [];
+                        if (!actorSignatures.includes(targetActor.signature)) {
+                            actorSignatures.push(targetActor.signature);
+                            sourceActor.update({ "flags.pf2e-kineticists-companion.fresh-produce.actor-signatures": actorSignatures });
+                        }
                     }
 
-                    freshProduceItem.update(
-                        {
-                            "system": {
-                                "equipped": {
-                                    "carryType": targetActor.handsFree ? "held" : "dropped",
-                                    "handsHeld": targetActor.handsFree ? 1 : 0
+                    // On the target actor, create a Fresh Produce item
+                    if (targetActor.primaryUpdater == game.user) {
+                        const freshProduceSource = (await fromUuid(FRESH_PRODUCE_ITEM_ID)).toObject();
+                        freshProduceSource.system.level.value = sourceActor.level;
+                        freshProduceSource.system.damage.formula = `${Math.ceil(sourceActor.level / 2)}d4+${Math.floor(sourceActor.level / 2) * 5 + 1}`;
+                        freshProduceSource.flags["pf2e-kineticists-companion"] = {
+                            "originSignature": sourceActor.signature
+                        };
+
+                        const [freshProduceItem] = await targetActor.createEmbeddedDocuments("Item", [freshProduceSource]);
+                        if (!freshProduceItem) {
+                            return;
+                        }
+
+                        freshProduceItem.update(
+                            {
+                                "system": {
+                                    "equipped": {
+                                        "carryType": targetActor.handsFree ? "held" : "dropped",
+                                        "handsHeld": targetActor.handsFree ? 1 : 0
+                                    }
                                 }
                             }
+                        );
+
+                        // If we're out of combat, or we've created the item on our own turn, post the item so it's easy to consume.
+                        if (!game.combat || targetActor === sourceActor) {
+                            freshProduceItem.toMessage();
                         }
-                    );
-
-                    // If we're out of combat, or we've created the item on our own turn, post the item so it's easy to consume.
-                    if (!game.combat || targetActor === sourceActor) {
-                        freshProduceItem.toMessage();
                     }
-
-                    const actorSignatures = sourceActor.flags["pf2e-kineticists-companion"]?.["fresh-produce"]?.["actor-signatures"] ?? [];
-                    actorSignatures.push(targetActor.signature);
-                    sourceActor.update({ "flags.pf2e-kineticists-companion.fresh-produce.actor-signatures": actorSignatures });
                 }
             }
         );
@@ -160,8 +164,8 @@ export class FreshProduce {
                 // For any actors for whom we are the primary updater, delete any Fresh Produce, created by the combatant, in their inventory
                 Array.from(game.combat.combatants)
                     .map(combatant => combatant.actor)
-                    .filter(actor => actor.primaryUpdater === game.user)
                     .filter(actor => actorSignatures.includes(actor.signature))
+                    .filter(actor => actor.primaryUpdater === game.user)
                     .forEach(
                         combatantActor => {
                             const freshProduceIds = combatantActor.itemTypes.consumable
@@ -176,13 +180,15 @@ export class FreshProduce {
                     );
 
                 // Reset the combatant's signature list
-                actor.update(
-                    {
-                        "flags": {
-                            "-=pf2e-kineticists-companion": null
+                if (actor.primaryUpdater == game.user) {
+                    actor.update(
+                        {
+                            "flags": {
+                                "-=pf2e-kineticists-companion": null
+                            }
                         }
-                    }
-                );
+                    );
+                }
             }
         );
     }

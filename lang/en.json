@@ -36,6 +36,9 @@
                 "content": "Would you like to create a wooden shield in your free hand?"
             },
             "shield-destroyed": "{name}'s wooden shield was broken and has decayed."
+        },
+        "thermal-nimbus": {
+            "damage-roll-not-found": "The DamageRoll class was not found, so Thermal Nimbus automation will not function."
         }
     }
 }

@@ -1,3 +1,7 @@
+## 1.2.1 - 2024-10-31 (Pathfinder 2e 6.6.0)
+- Fix Fresh Produce causing errors for players on every turn change.
+- Move Thermal Nimbus Damage effect to the compendium with all the other items.
+
 ## 1.2.0 - 2024-10-30 (Pathfinder 2e 6.5.1)
 - Add automation for Armor in Earth, Hardwood Armor, and Metal Carapace.
 
