@@ -33,5 +33,18 @@ export class Settings {
                 default: "ask"
             }
         );
+
+        game.settings.register(
+            "pf2e-kineticists-companion",
+            "timber-sentinel-enable",
+            {
+                name: game.i18n.localize("pf2e-kineticists-companion.timber-sentinel.config.enable"),
+                scope: "world",
+                config: true,
+                type: Boolean,
+                default: true,
+                requiresReload: true
+            }
+        );
     }
 }

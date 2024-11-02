@@ -2,7 +2,7 @@
     "id": "pf2e-kineticists-companion",
     "title": "PF2e Kineticist's Companion",
     "description": "Improve automation for Kineticists in Pathfinder 2e.",
-    "version": "1.2.1",
+    "version": "1.3.0",
     "authors": [
         {
             "name": "JDCalvert",
@@ -19,18 +19,43 @@
                 "id": "pf2e",
                 "type": "system"
             }
+        ],
+        "recommends": [
+            {
+                "id": "portal-lib",
+                "type": "module",
+                "reason": "Required for Timber Sentinel automation."
+            },
+            {
+                "id": "socketlib",
+                "type": "module",
+                "reason": "Required for Timber Sentinel automation."
+            },
+            {
+                "id": "lib-wrapper",
+                "type": "module",
+                "reason": "Required for Timber Sentinel automation."
+            }
         ]
     },
     "url": "https://github.com/JDCalvert/pf2e-kineticists-companion",
     "manifest": "https://github.com/JDCalvert/pf2e-kineticists-companion/releases/latest/download/module.json",
-    "download": "https://github.com/JDCalvert/pf2e-kineticists-companion/releases/download/1.2.1/pf2e-kineticists-companion.zip",
+    "download": "https://github.com/JDCalvert/pf2e-kineticists-companion/releases/download/1.3.0/pf2e-kineticists-companion.zip",
     "readme": "https://github.com/JDCalvert/pf2e-kineticists-companion",
     "bugs": "https://github.com/JDCalvert/pf2e-kineticists-companion/issues",
     "changelog": "https://github.com/JDCalvert/pf2e-kineticists-companion/blob/main/CHANGELOG.md",
     "esmodules": [
         "scripts/pf2e-kineticists-companion.js"
     ],
+    "socket": true,
     "packs": [
+        {
+            "name": "actors",
+            "label": "Actors",
+            "path": "packs/actors",
+            "type": "Actor",
+            "system": "pf2e"
+        },
         {
             "name": "items",
             "label": "Items",
@@ -44,7 +69,7 @@
             "name": "PF2e Kineticist's Companion",
             "sorting": "a",
             "packs": [
-                "effects",
+                "actors",
                 "items"
             ]
         }

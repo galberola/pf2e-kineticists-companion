@@ -1,0 +1,66 @@
+{
+  "name": "Effect: Protector Tree",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Whenever an adjacent ally is hit by a Strike, the tree interposes its branch and takes the damage first. Any additional damage beyond what it takes to reduce the tree to 0 Hit Points is dealt to the original target.</p>"
+    },
+    "rules": [],
+    "slug": "effect-protector-tree",
+    "_migration": {
+      "version": 0.933,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "Pathfinder Player Core 2",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false
+  },
+  "_id": "qFGdtxGT86J1Kj5R",
+  "img": "systems/pf2e/icons/spells/protector-tree.webp",
+  "folder": "KO5DNptE1Ki37tmF",
+  "sort": 100000,
+  "ownership": {
+    "default": 0,
+    "TrPGLuiZR0lPpyh3": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "pf2e",
+    "systemVersion": "6.5.1",
+    "createdTime": 1730298592249,
+    "modifiedTime": 1730371758985,
+    "lastModifiedBy": "TrPGLuiZR0lPpyh3"
+  },
+  "_key": "!items!qFGdtxGT86J1Kj5R"
+}

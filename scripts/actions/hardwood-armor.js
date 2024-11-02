@@ -1,3 +1,4 @@
+import { Chat } from "../utils/chat.js";
 import { DialogPrompt } from "../utils/prompt-dialog.js";
 
 const HARDWOOD_ARMOR_FEAT_ID = "Compendium.pf2e.feats-srd.Item.cZa6br5C3Iyzqqi9";
@@ -168,7 +169,7 @@ export class HardwoodArmor {
                 if (update.system.hp.value <= item.system.hp.brokenThreshold) {
                     item.delete();
 
-                    this.#postToChat(item.actor, "shield-destroyed", item.img);
+                    Chat.postToChat(item.actor, this.localize("shield-destroyed", { name: item.actor.name }), item.img);
 
                     return false;
                 }
@@ -195,23 +196,5 @@ export class HardwoodArmor {
         }
 
         return response.answer;
-    }
-
-    static async #postToChat(actor, message, img) {
-        const content = await renderTemplate(
-            "./systems/pf2e/templates/chat/action/content.hbs",
-            {
-                imgPath: img,
-                message: localize(message, { name: actor.name })
-            }
-        );
-
-        ChatMessage.create(
-            {
-                type: CONST.CHAT_MESSAGE_STYLES.EMOTE,
-                speaker: ChatMessage.getSpeaker({ actor }),
-                content
-            }
-        );
     }
 }

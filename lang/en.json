@@ -18,7 +18,7 @@
         },
         "metal-carapace": {
             "config": {
-                "name": "Create Metal Carapace shield"
+                "name": "Create Metal Carapace Shield"
             },
             "shield-prompt": {
                 "title": "Metal Carapace Shield",
@@ -36,6 +36,17 @@
                 "content": "Would you like to create a wooden shield in your free hand?"
             },
             "shield-destroyed": "{name}'s wooden shield was broken and has decayed."
+        },
+        "timber-sentinel": {
+            "config": {
+                "enable": "Enable Timber Sentinel Automation"
+            },
+            "no-gamemaster": {
+                "create": "The Protector Tree could not be created as there is no Gamemaster present.",
+                "intercept": "The Protector Tree did not intercept the Strike as there is no Gamemaster present."
+            },
+            "take-damage": "{name} intercepts the Strike and takes {damage} damage.",
+            "take-damage-destroyed": "{name} intercepts the Strike, takes {damage} damage, and is destroyed."
         },
         "thermal-nimbus": {
             "damage-roll-not-found": "The DamageRoll class was not found, so Thermal Nimbus automation will not function."

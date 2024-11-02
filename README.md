@@ -2,7 +2,7 @@
 A module for the Foundry VTT Pathfinder 2e system that provides improved automation for the Kineticist class.
 
 ![Github All Releases](https://img.shields.io/github/downloads/JDCalvert/pf2e-kineticists-companion/total.svg)
-![Github Latest Release](https://img.shields.io/github/downloads/JDCalvert/pf2e-kineticists-companion/1.2.1/total)
+![Github Latest Release](https://img.shields.io/github/downloads/JDCalvert/pf2e-kineticists-companion/1.3.0/total)
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/jdcalvert)
 
@@ -30,3 +30,21 @@ Any Fresh Produce items created are automatically deleted at the start of your n
 
 ### Armor in Earth, Hardwood Armor, and Metal Carapace Automation
 When you use any of these actions, your armour will be replaced with the impulse's armour. You will also have an option to create a shield, if applicable - this is configurable in settings to either always create a shield (if you have a free hand), never create a shield, or ask each time. The shields are removed when they are broken, and Metal Carapace will end if you take critical hit damage.
+
+### Timber Sentinel Automation
+When you use the Timber Sentinel impulse, you will be able to choose a space to place the protector tree, and it will spawn. Any allies that take damage from
+Strikes will automatically have the damage reduced by the tree.
+
+<small>
+    <b>Notes:</b>
+    <ul>
+        <li>A gamemaster must be present for all parts of this automation to function.</li>
+        <li>Damage with multiple instances is reduced in the order that it appears in the data. Any instance that is reduced to 0 will not process at all for the target, and so will not trigger resistances and weaknesses.</li>
+        <li>The following modules are all required for this automation to function:</li>
+        <ul>
+            <li><a href="https://foundryvtt.com/packages/portal-lib">Portal</a></li>
+            <li><a href="https://foundryvtt.com/packages/socketlib">socketlib</a></li>
+            <li><a href="https://foundryvtt.com/packages/lib-wrapper">libWrapper</a></li>
+        </ul>
+    </ul>
+</small>

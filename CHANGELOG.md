@@ -1,3 +1,6 @@
+## 1.3.0 - 2024-01-02 (Pathfinder 2e 6.6.1)
+- Add automation for Timber Sentinel.
+
 ## 1.2.1 - 2024-10-31 (Pathfinder 2e 6.6.0)
 - Fix Fresh Produce causing errors for players on every turn change.
 - Move Thermal Nimbus Damage effect to the compendium with all the other items.

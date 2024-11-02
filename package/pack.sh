@@ -4,4 +4,5 @@ fvtt package workon "pf2e-kineticists-companion" --type "Module"
 
 rm -r packs
 
+fvtt package pack actors --in packs-source/actors --out packs
 fvtt package pack items --in packs-source/items --out packs
