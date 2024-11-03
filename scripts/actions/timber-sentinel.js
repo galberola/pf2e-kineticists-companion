@@ -2,7 +2,7 @@ import { Chat } from "../utils/chat.js";
 import { Socket } from "../utils/socket.js";
 
 const TIMBER_SENTINEL_FEAT_ID = "Compendium.pf2e.feats-srd.Item.aHlcMMNQ85VLK7QT";
-const PROTECTOR_TREE_ACTOR_ID = "Compendium.pf2e-kineticists-companion.actors.Actor.yxcKaC5HQUVm8NTn";
+const PROTECTOR_TREE_ACTOR_ID = "Compendium.pf2e-kineticists-companion.actors.Actor.EaXKh9W9jU3g1xdy";
 const PROTECTOR_TREE_EFFECT_ID = "Compendium.pf2e-kineticists-companion.items.Item.qFGdtxGT86J1Kj5R";
 
 export class TimberSentinel {
@@ -125,8 +125,7 @@ export class TimberSentinel {
                 "system": {
                     "attributes.hp": {
                         "max": data.origin.rank * 10
-                    },
-                    "details.alliance": data.origin.alliance
+                    }
                 }
             }
         );
@@ -137,6 +136,7 @@ export class TimberSentinel {
         // Add the new protector tree effect
         const protectorTreeEffectSource = (await fromUuid(PROTECTOR_TREE_EFFECT_ID)).toObject();
         protectorTreeEffectSource.flags["pf2e-kineticists-companion"] = {
+            "alliance": data.origin.alliance,
             "origin-signature": data.origin.signature
         };
 
@@ -157,9 +157,13 @@ export class TimberSentinel {
 
         // Find any adjacent tokens that have the Protector Tree effect
         const protectorTreeTokenIds = canvas.tokens.placeables
-            .filter(token => token.actor.itemTypes.effect.some(effect => effect.sourceId === PROTECTOR_TREE_EFFECT_ID))
+            .filter(protectorToken =>
+                protectorToken.actor.itemTypes.effect.some(effect =>
+                    effect.sourceId === PROTECTOR_TREE_EFFECT_ID &&
+                    effect.flags["pf2e-kineticists-companion"]?.["alliance"] === token.actor.alliance
+                )
+            )
             .filter(protectorToken => protectorToken.isAdjacentTo(token))
-            .filter(protectorToken => protectorToken.actor.alliance == token.actor.alliance)
             .map(protectorToken => protectorToken.document.uuid);
 
         if (!protectorTreeTokenIds.length) {

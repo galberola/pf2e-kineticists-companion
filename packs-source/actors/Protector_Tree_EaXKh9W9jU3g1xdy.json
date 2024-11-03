@@ -4,12 +4,23 @@
     "displayBars": 30,
     "flags": {
       "pf2e": {
-        "linkToActorSize": true,
+        "linkToActorSize": false,
         "autoscale": false
       }
     },
     "height": 1,
     "width": 1,
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
     "name": "Protector Tree",
     "actorLink": false,
     "appendNumber": false,
@@ -63,17 +74,6 @@
         "max": 1
       }
     },
-    "sight": {
-      "enabled": false,
-      "range": 0,
-      "angle": 360,
-      "visionMode": "basic",
-      "color": null,
-      "attenuation": 0.1,
-      "brightness": 0,
-      "saturation": 0,
-      "contrast": 0
-    },
     "detectionModes": [],
     "occludable": {
       "radius": 0
@@ -93,85 +93,13 @@
     "randomImg": false
   },
   "name": "Protector Tree",
-  "type": "npc",
+  "type": "hazard",
   "ownership": {
     "default": 0,
     "TaMf9pFfozc15vf9": 3
   },
   "effects": [],
   "system": {
-    "attributes": {
-      "hp": {
-        "value": 10,
-        "temp": 0,
-        "max": 10,
-        "details": ""
-      },
-      "speed": {
-        "value": 25,
-        "otherSpeeds": [],
-        "details": ""
-      },
-      "ac": {
-        "value": 10,
-        "details": ""
-      },
-      "allSaves": {
-        "value": ""
-      }
-    },
-    "initiative": {
-      "statistic": "perception"
-    },
-    "details": {
-      "languages": {
-        "value": [],
-        "details": ""
-      },
-      "level": {
-        "value": 1
-      },
-      "blurb": "",
-      "publicNotes": "",
-      "privateNotes": "",
-      "publication": {
-        "title": "",
-        "authors": "",
-        "license": "OGL",
-        "remaster": false
-      }
-    },
-    "resources": {},
-    "_migration": {
-      "version": 0.933,
-      "previous": null
-    },
-    "abilities": {
-      "str": {
-        "mod": 0
-      },
-      "dex": {
-        "mod": 0
-      },
-      "con": {
-        "mod": 0
-      },
-      "int": {
-        "mod": 0
-      },
-      "wis": {
-        "mod": 0
-      },
-      "cha": {
-        "mod": 0
-      }
-    },
-    "perception": {
-      "details": "",
-      "mod": 0,
-      "senses": [],
-      "vision": true
-    },
     "saves": {
       "fortitude": {
         "value": 0,
@@ -186,30 +114,73 @@
         "saveDetail": ""
       }
     },
-    "skills": {},
+    "attributes": {
+      "ac": {
+        "value": 10
+      },
+      "hp": {
+        "value": 10,
+        "max": 10,
+        "temp": 0,
+        "details": ""
+      },
+      "hardness": 0,
+      "stealth": {
+        "value": 0,
+        "details": ""
+      },
+      "emitsSound": false
+    },
+    "details": {
+      "isComplex": false,
+      "level": {
+        "value": 1
+      },
+      "disable": "",
+      "description": "",
+      "reset": "",
+      "routine": "",
+      "publication": {
+        "title": "Pathfinder Player Core 2",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "statusEffects": [],
     "traits": {
       "value": [],
       "rarity": "common",
       "size": {
         "value": "med"
       }
+    },
+    "_migration": {
+      "version": 0.933,
+      "previous": null
     }
   },
-  "_id": "yxcKaC5HQUVm8NTn",
+  "_id": "EaXKh9W9jU3g1xdy",
   "img": "modules/pf2e-kineticists-companion/assets/protector-tree/protector-tree.webp",
   "items": [],
   "folder": null,
   "sort": 0,
-  "flags": {},
+  "flags": {
+    "pf2e": {
+      "editHazard": {
+        "value": false
+      }
+    }
+  },
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
     "coreVersion": "12.331",
     "systemId": "pf2e",
-    "systemVersion": "6.6.0",
-    "createdTime": 1730421362501,
-    "modifiedTime": 1730511000603,
+    "systemVersion": "6.6.1",
+    "createdTime": 1730590092279,
+    "modifiedTime": 1730590576701,
     "lastModifiedBy": "TaMf9pFfozc15vf9"
   },
-  "_key": "!actors!yxcKaC5HQUVm8NTn"
+  "_key": "!actors!EaXKh9W9jU3g1xdy"
 }

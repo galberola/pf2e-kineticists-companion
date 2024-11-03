@@ -1,5 +1,6 @@
 ## Unreleased
 - Add setting to disable automatically applying Thermal Nimbus damage.
+- Moved Timber Sentinel to be a hazard instead of an NPC, so it will not provide flanking.
 
 ## 1.3.0 - 2024-11-02 (Pathfinder 2e 6.6.1)
 - Add automation for Timber Sentinel.
