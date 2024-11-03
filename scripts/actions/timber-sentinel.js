@@ -120,6 +120,17 @@ export class TimberSentinel {
 
         const actor = token.object.actor;
 
+        const prototypeTokenSource = actor.prototypeToken.toObject();
+        token.update(
+            {
+                "texture": prototypeTokenSource.texture,
+                "bar1": prototypeTokenSource.bar1,
+                "bar2": prototypeTokenSource.bar2,
+                "displayName": prototypeTokenSource.displayName,
+                "displayBars": prototypeTokenSource.displayBars
+            }
+        );
+
         await actor.update(
             {
                 "system": {
