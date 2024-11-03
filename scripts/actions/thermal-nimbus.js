@@ -92,6 +92,10 @@ export class ThermalNimbus {
                     return;
                 }
 
+                if (!game.settings.get("pf2e-kineticists-companion", "thermal-nimbus-apply-damage")) {
+                    return;
+                }
+
                 const tokenId = flags["target-token-id"];
                 const token = game.combat?.combatants?.map(combatant => combatant.token)?.find(token => token.id === tokenId);
                 if (!token) {

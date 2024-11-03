@@ -1,4 +1,7 @@
-## 1.3.0 - 2024-01-02 (Pathfinder 2e 6.6.1)
+## Unreleased
+- Add setting to disable automatically applying Thermal Nimbus damage.
+
+## 1.3.0 - 2024-11-02 (Pathfinder 2e 6.6.1)
 - Add automation for Timber Sentinel.
 
 ## 1.2.1 - 2024-10-31 (Pathfinder 2e 6.6.0)

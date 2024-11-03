@@ -18,7 +18,7 @@
         },
         "metal-carapace": {
             "config": {
-                "name": "Create Metal Carapace Shield"
+                "name": "Metal Carapace: Create Shield"
             },
             "shield-prompt": {
                 "title": "Metal Carapace Shield",
@@ -29,7 +29,7 @@
         },
         "hardwood-armor": {
             "config": {
-                "name": "Create Hardwood Shield"
+                "name": "Hardwood Armor: Create Shield"
             },
             "shield-prompt": {
                 "title": "Hardwood Armor Shield",
@@ -39,7 +39,7 @@
         },
         "timber-sentinel": {
             "config": {
-                "enable": "Enable Timber Sentinel Automation"
+                "enable": "Timber Sentinel: Enable Automation"
             },
             "no-gamemaster": {
                 "create": "The Protector Tree could not be created as there is no Gamemaster present.",
@@ -49,7 +49,13 @@
             "take-damage-destroyed": "{name} intercepts the Strike, takes {damage} damage, and is destroyed."
         },
         "thermal-nimbus": {
-            "damage-roll-not-found": "The DamageRoll class was not found, so Thermal Nimbus automation will not function."
+            "damage-roll-not-found": "The DamageRoll class was not found, so Thermal Nimbus automation will not function.",
+            "config": {
+                "auto-damage": {
+                    "name": "Thermal Nimbus: Automatically Apply Damage",
+                    "hint": "Damage will still roll automatically, but must be applied manually."
+                }
+            }
         }
     }
 }
