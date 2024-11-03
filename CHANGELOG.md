@@ -1,4 +1,4 @@
-## Unreleased
+## 1.3.1 - 2024-11-03 (Pathfinder 2e 6.6.1)
 - Add setting to disable automatically applying Thermal Nimbus damage.
 - Moved Timber Sentinel to be a hazard instead of an NPC, so it will not provide flanking.
 - Make Protector Tree token respect prototype token settings.
