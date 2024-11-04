@@ -1,3 +1,6 @@
+## 1.4.1 - 2024-11-04 (Pathfinder 2e 6.6.1)
+- Update Polish translation.
+
 ## 1.4.0 - 2024-11-04 (Pathfinder 2e 6.6.1)
 - Improve Armor in Earth, Hardwood Armor, and Metal Carapace automation:
     - Add options to remove duration from the effects, to allow handwaving of their durations.
