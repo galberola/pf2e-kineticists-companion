@@ -156,7 +156,7 @@ export class TimberSentinel {
 
     static async #applyDamage(wrapped, data) {
         // If the damage isn't from a strike, apply normally.
-        if (!data.rollOptions.has("origin:action:slug:strike")) {
+        if (!data.rollOptions?.has("origin:action:slug:strike")) {
             return await wrapped(data);
         }
 
