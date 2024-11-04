@@ -1,122 +1,37 @@
-import { Chat } from "../utils/chat.js";
-import { DialogPrompt } from "../utils/prompt-dialog.js";
+import { ArmorImpulse } from "./common/armor-impulse.js";
 
 const HARDWOOD_ARMOR_FEAT_ID = "Compendium.pf2e.feats-srd.Item.cZa6br5C3Iyzqqi9";
 const HARDWOOD_ARMOR_EFFECT_ID = "Compendium.pf2e-kineticists-companion.items.Item.T5eTAW1TOgDO3Kec";
 const HARDWOOD_ARMOR_ARMOR_ID = "Compendium.pf2e-kineticists-companion.items.Item.g9VJMFAv3MHzxOkm";
-const WOODEN_SHIELD_ID = "Compendium.pf2e.equipment-srd.Item.ezVp13Uw8cWW08Da";
+const HARDWOOD_SHIELD_ID = "Compendium.pf2e-kineticists-companion.items.Item.bWt0k2tPn0mLKsAZ";
 
-const localize = (key, data) => game.i18n.format("pf2e-kineticists-companion.hardwood-armor." + key, data);
+const HARDWOOD_ARMOR_SLUG = "hardwood-armor";
+const HARDWOOD_SHIELD_SLUG = "hardwood-shield";
 
 export class HardwoodArmor {
     static initialise() {
         Hooks.on(
             "preCreateChatMessage",
             message => {
+                // If we post the Hardwood Armor impulse, apply its effects
                 if (message.item?.sourceId === HARDWOOD_ARMOR_FEAT_ID) {
                     const actor = message.item.actor;
                     if (!actor) {
                         return;
                     }
 
-                    (async () => {
-                        const creates = [];
-
-                        // Delete any existing Hardwood Armor effect, and create a new one
-                        await actor.itemTypes.shield.find(shield => shield.slug === "hardwood-shield")?.delete();
-                        await actor.itemTypes.effect.find(effect => effect.sourceId === HARDWOOD_ARMOR_EFFECT_ID)?.delete({ skipDeleteArmor: true });
-
-                        const hardwoodArmorEffectSource = (await fromUuid(HARDWOOD_ARMOR_EFFECT_ID)).toObject();
-
-                        if (game.settings.get("pf2e-kineticists-companion", "hardwood-armor-unlimited-duration")) {
-                            hardwoodArmorEffectSource.system.duration = {
-                                expiry: null,
-                                sustained: false,
-                                unit: "unlimited",
-                                value: -1
-                            };
-                        }
-
-                        creates.push(hardwoodArmorEffectSource);
-
-                        // If we don't already have a Hardwood Armor item, create one
-                        const existingHardwoodArmor = actor.itemTypes.armor.find(armor => armor.sourceId === HARDWOOD_ARMOR_ARMOR_ID);
-                        if (!existingHardwoodArmor) {
-                            const hardwoodArmorSource = (await fromUuid(HARDWOOD_ARMOR_ARMOR_ID)).toObject();
-
-                            if (actor.wornArmor) {
-                                const previousArmorData = {
-                                    "id": actor.wornArmor.id,
-                                    "bulk": actor.wornArmor._source.system.bulk.value,
-                                    "runes": actor.wornArmor._source.system.runes
-                                };
-
-                                hardwoodArmorSource.flags["pf2e-kineticists-companion"] = { "previous-armor": previousArmorData };
-                                hardwoodArmorSource.system.runes = previousArmorData.runes;
-                            }
-
-                            creates.push(hardwoodArmorSource);
-                        }
-
-                        const createShield = await this.#shouldCreateShield(actor);
-                        if (createShield) {
-                            const hardwoodShieldSource = (await fromUuid(WOODEN_SHIELD_ID)).toObject();
-                            hardwoodShieldSource.system.slug = "hardwood-shield";
-
-                            creates.push(hardwoodShieldSource);
-                        }
-
-                        const createdItems = await actor.createEmbeddedDocuments("Item", creates);
-
-                        const updates = [];
-
-                        // If we created hardwood armor, set it as worn
-                        const hardwoodArmor = createdItems.find(item => item.sourceId === HARDWOOD_ARMOR_ARMOR_ID);
-                        if (hardwoodArmor) {
-                            updates.push(
-                                {
-                                    "_id": hardwoodArmor.id,
-                                    "system.equipped": {
-                                        "inSlot": true,
-                                        "invested": true
-                                    }
-                                }
-                            );
-
-                            const previousArmorData = hardwoodArmor.flags["pf2e-kineticists-companion"]?.["previous-armor"];
-                            if (previousArmorData) {
-                                updates.push(
-                                    {
-                                        "_id": previousArmorData.id,
-                                        "system": {
-                                            "bulk.value": previousArmorData.bulk > 1 ? previousArmorData.bulk - 1 : previousArmorData.bulk == 1 ? 0.1 : 0,
-                                            "equipped.inSlot": false
-                                        }
-                                    }
-                                );
+                    ArmorImpulse.applyImpulse(
+                        actor,
+                        {
+                            impulseSlug: HARDWOOD_ARMOR_SLUG,
+                            effectId: HARDWOOD_ARMOR_EFFECT_ID,
+                            armorId: HARDWOOD_ARMOR_ARMOR_ID,
+                            shield: {
+                                sourceId: HARDWOOD_SHIELD_ID,
+                                slug: HARDWOOD_SHIELD_SLUG
                             }
                         }
-
-                        const hardwoodShield = createdItems.find(item => item.sourceId === WOODEN_SHIELD_ID);
-                        if (hardwoodShield) {
-                            updates.push(
-                                {
-                                    "_id": hardwoodShield.id,
-                                    "system": {
-                                        "equipped": {
-                                            "carryType": "held",
-                                            "handsHeld": 1
-                                        },
-                                        "hp.value": hardwoodShield.system.hp.max
-                                    }
-                                }
-                            );
-                        }
-
-                        if (updates.length) {
-                            actor.updateEmbeddedDocuments("Item", updates);
-                        }
-                    })();
+                    );
                 }
             }
         );
@@ -124,92 +39,30 @@ export class HardwoodArmor {
         Hooks.on(
             "preDeleteItem",
             (item, context) => {
-                const actor = item.actor;
-                if (!actor) {
-                    return;
-                }
-
-                if (item.sourceId === HARDWOOD_ARMOR_EFFECT_ID) {
-                    const deletes = [];
-
-                    if (!context.skipDeleteArmor) {
-                        const hardwoodArmor = actor.itemTypes.armor.find(armor => armor.sourceId === HARDWOOD_ARMOR_ARMOR_ID);
-                        if (hardwoodArmor) {
-                            deletes.push(hardwoodArmor.id);
-
-                            const previousArmorData = hardwoodArmor.flags["pf2e-kineticists-companion"]?.["previous-armor"];
-                            if (previousArmorData) {
-                                actor.itemTypes.armor.find(armor => armor.id === previousArmorData.id)?.update(
-                                    {
-                                        "system": {
-                                            "bulk.value": previousArmorData.bulk,
-                                            "equipped.inSlot": true
-                                        }
-                                    }
-                                );
-                            }
-                        }
+                return ArmorImpulse.preDeleteItem(
+                    item,
+                    context,
+                    {
+                        effectId: HARDWOOD_ARMOR_EFFECT_ID,
+                        armorId: HARDWOOD_ARMOR_ARMOR_ID,
+                        shieldSlug: HARDWOOD_SHIELD_SLUG
                     }
-
-                    const hardwoodShield = actor.itemTypes.shield.find(shield => shield.slug === "hardwood-shield");
-                    if (hardwoodShield) {
-                        deletes.push(hardwoodShield.id);
-                    }
-
-                    if (deletes.length) {
-                        actor.deleteEmbeddedDocuments("Item", deletes, { skipDeleteEffect: true });
-                    }
-                } else if (item.sourceId === HARDWOOD_ARMOR_ARMOR_ID && !context.skipDeleteEffect) {
-                    const hardwoodArmorEffect = actor.itemTypes.effect.find(effect => effect.sourceId === HARDWOOD_ARMOR_EFFECT_ID);
-                    if (hardwoodArmorEffect) {
-                        hardwoodArmorEffect.delete();
-                        return false;
-                    }
-                }
+                );
             }
         );
 
         Hooks.on(
             "preUpdateItem",
             (item, update) => {
-                if (item.slug !== "hardwood-shield") {
-                    return;
-                }
-
-                // We only care if we're updating the shield's HP
-                if (!(update.system?.hp && Object.hasOwn(update.system?.hp, "value"))) {
-                    return;
-                }
-
-                if (update.system.hp.value <= item.system.hp.brokenThreshold) {
-                    item.delete();
-
-                    Chat.postToChat(item.actor, this.localize("shield-destroyed", { name: item.actor.name }), item.img);
-
-                    return false;
-                }
+                return ArmorImpulse.handleShieldDamage(
+                    item,
+                    update,
+                    {
+                        impulseSlug: HARDWOOD_ARMOR_SLUG,
+                        shieldSlug: HARDWOOD_SHIELD_SLUG
+                    }
+                );
             }
         );
-    }
-
-    static async #shouldCreateShield(actor) {
-        if (!actor.handsFree) {
-            return false;
-        }
-
-        const createShieldSetting = game.settings.get("pf2e-kineticists-companion", "hardwood-armor-shield-prompt");
-        if (createShieldSetting === "always") {
-            return true;
-        } else if (createShieldSetting === "never") {
-            return false;
-        }
-
-        const response = await DialogPrompt.prompt(localize("shield-prompt.title"), localize("shield-prompt.content"));
-
-        if (response.remember) {
-            game.settings.set("pf2e-kineticists-companion", "hardwood-armor-shield-prompt", response.answer ? "always" : "never");
-        }
-
-        return response.answer;
     }
 }

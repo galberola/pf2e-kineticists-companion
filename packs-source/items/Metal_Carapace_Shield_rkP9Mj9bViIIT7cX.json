@@ -30,7 +30,7 @@
       "value": 0
     },
     "quantity": 1,
-    "baseItem": null,
+    "baseItem": "steel-shield",
     "bulk": {
       "value": 1
     },
@@ -85,9 +85,9 @@
     "duplicateSource": null,
     "coreVersion": "12.331",
     "systemId": "pf2e",
-    "systemVersion": "6.5.1",
+    "systemVersion": "6.6.1",
     "createdTime": 1730221811897,
-    "modifiedTime": 1730240357152,
+    "modifiedTime": 1730749965234,
     "lastModifiedBy": "TrPGLuiZR0lPpyh3"
   },
   "_key": "!items!rkP9Mj9bViIIT7cX"

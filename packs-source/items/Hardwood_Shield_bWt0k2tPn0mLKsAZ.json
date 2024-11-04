@@ -1,0 +1,97 @@
+{
+  "img": "icons/equipment/shield/buckler-wooden-boss-brown.webp",
+  "name": "Hardwood Shield",
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>This shield was created by the @UUID[Compendium.pf2e.feats-srd.cZa6br5C3Iyzqqi9]{Hardwood Armor} impulse.</p><p>You can @UUID[Compendium.pf2e.classfeatures.eZNCckLzbH3GyncH]{Shield Block} with this shield even if you don't have that feat. The hand wielding this shield counts as a free hand for using impulses. The shield decays in an instant if it becomes @UUID[Compendium.pf2e.conditionitems.6dNUvdb1dhToNDj3]{Broken} or leaves your grasp.</p><table class=\"pf2e\"><thead><tr><th>Hardness</th><th>HP</th><th>BT</th></tr></thead><tbody><tr><td>3</td><td>12</td><td>6</td></tr></tbody></table>"
+    },
+    "rules": [],
+    "slug": "hardwood-shield",
+    "_migration": {
+      "version": 0.933,
+      "lastMigration": null,
+      "previous": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [],
+      "rarity": "common",
+      "integrated": null
+    },
+    "publication": {
+      "title": "Pathfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 0
+    },
+    "quantity": 1,
+    "baseItem": "wooden-shield",
+    "bulk": {
+      "value": 1
+    },
+    "hp": {
+      "value": 12,
+      "max": 12
+    },
+    "hardness": 3,
+    "price": {
+      "value": {
+        "gp": 1
+      }
+    },
+    "equipped": {
+      "carryType": "worn"
+    },
+    "containerId": null,
+    "size": "med",
+    "material": {
+      "type": null,
+      "grade": null
+    },
+    "identification": {
+      "status": "identified",
+      "unidentified": {
+        "name": "Unusual Wooden Shield",
+        "img": "systems/pf2e/icons/unidentified_item_icons/shields.webp",
+        "data": {
+          "description": {
+            "value": ""
+          }
+        }
+      },
+      "misidentified": {}
+    },
+    "acBonus": 2,
+    "runes": {
+      "reinforcing": 0
+    },
+    "specific": null,
+    "speedPenalty": 0,
+    "subitems": []
+  },
+  "type": "shield",
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "pf2e",
+    "systemVersion": "6.6.1",
+    "createdTime": 1730749755609,
+    "modifiedTime": 1730749952984,
+    "lastModifiedBy": "TrPGLuiZR0lPpyh3"
+  },
+  "effects": [],
+  "folder": "SFzkRm2YmSV5gDzq",
+  "ownership": {
+    "default": 0,
+    "TrPGLuiZR0lPpyh3": 3
+  },
+  "flags": {},
+  "_id": "bWt0k2tPn0mLKsAZ",
+  "sort": 0,
+  "_key": "!items!bWt0k2tPn0mLKsAZ"
+}

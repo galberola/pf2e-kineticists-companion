@@ -1,120 +1,38 @@
 import { Chat } from "../utils/chat.js";
-import { DialogPrompt } from "../utils/prompt-dialog.js";
+import { ArmorImpulse } from "./common/armor-impulse.js";
 
 const METAL_CARAPACE_FEAT_ID = "Compendium.pf2e.feats-srd.Item.HbdOZ8YTtu8ykASc";
 const METAL_CARAPACE_EFFECT_ID = "Compendium.pf2e-kineticists-companion.items.Item.2Sgil2Rnze8hOAMy";
 const METAL_CARAPACE_ARMOR_ID = "Compendium.pf2e-kineticists-companion.items.Item.lFwSITcv5vwrK5m1";
 const METAL_CARAPACE_SHIELD_ID = "Compendium.pf2e-kineticists-companion.items.Item.rkP9Mj9bViIIT7cX";
 
-const localize = (key, data) => game.i18n.format("pf2e-kineticists-companion.metal-carapace." + key, data);
+const METAL_CARAPACE_SLUG = "metal-carapace";
+const METAL_CARAPACE_SHIELD_SLUG = "metal-carapace-shield";
 
 export class MetalCarapace {
     static initialise() {
         Hooks.on(
             "preCreateChatMessage",
             message => {
+                // If we post the Metal Carapace impulse, apply its effects
                 if (message.item?.sourceId === METAL_CARAPACE_FEAT_ID) {
                     const actor = message.item.actor;
                     if (!actor) {
                         return;
                     }
 
-                    (async () => {
-                        const creates = [];
-
-                        // Delete any existing Metal Carapace effect, and create a new one
-                        await actor.itemTypes.shield.find(shield => shield.sourceId === METAL_CARAPACE_SHIELD_ID)?.delete();
-                        await actor.itemTypes.effect.find(effect => effect.sourceId === METAL_CARAPACE_EFFECT_ID)?.delete({ skipDeleteArmor: true });
-
-                        const metalCarapaceEffectSource = (await fromUuid(METAL_CARAPACE_EFFECT_ID)).toObject();
-
-                        if (game.settings.get("pf2e-kineticists-companion", "metal-carapace-unlimited-duration")) {
-                            metalCarapaceEffectSource.system.duration = {
-                                expiry: null,
-                                sustained: false,
-                                unit: "unlimited",
-                                value: -1
-                            };
-                        }
-
-                        creates.push(metalCarapaceEffectSource);
-
-                        // If we don't already have a Metal Carapace armor item, create one
-                        const existingMetalCarapaceArmor = actor.itemTypes.armor.find(armor => armor.sourceId === METAL_CARAPACE_ARMOR_ID);
-                        if (!existingMetalCarapaceArmor) {
-                            const metalCarapaceArmorSource = (await fromUuid(METAL_CARAPACE_ARMOR_ID)).toObject();
-
-                            if (actor.wornArmor) {
-                                const previousArmorData = {
-                                    "id": actor.wornArmor.id,
-                                    "bulk": actor.wornArmor._source.system.bulk.value,
-                                    "runes": actor.wornArmor._source.system.runes
-                                };
-
-                                metalCarapaceArmorSource.flags["pf2e-kineticists-companion"] = { "previous-armor": previousArmorData };
-                                metalCarapaceArmorSource.system.runes = previousArmorData.runes;
-                            }
-
-                            creates.push(metalCarapaceArmorSource);
-                        }
-
-                        const createShield = await this.#shouldCreateShield(actor);
-                        if (createShield) {
-                            creates.push((await fromUuid(METAL_CARAPACE_SHIELD_ID)).toObject());
-                        }
-
-                        const createdItems = await actor.createEmbeddedDocuments("Item", creates);
-
-                        const updates = [];
-
-                        // If we created the armor, set it as worn
-                        const metalCarapaceArmor = createdItems.find(item => item.sourceId === METAL_CARAPACE_ARMOR_ID);
-                        if (metalCarapaceArmor) {
-                            updates.push(
-                                {
-                                    "_id": metalCarapaceArmor.id,
-                                    "system.equipped": {
-                                        "inSlot": true,
-                                        "invested": true
-                                    }
-                                }
-                            );
-
-                            const previousArmorData = metalCarapaceArmor.flags["pf2e-kineticists-companion"]?.["previous-armor"];
-                            if (previousArmorData) {
-                                updates.push(
-                                    {
-                                        "_id": previousArmorData.id,
-                                        "system": {
-                                            "bulk.value": previousArmorData.bulk > 1 ? previousArmorData.bulk - 1 : previousArmorData.bulk == 1 ? 0.1 : 0,
-                                            "equipped.inSlot": false
-                                        }
-                                    }
-                                );
+                    ArmorImpulse.applyImpulse(
+                        actor,
+                        {
+                            impulseSlug: METAL_CARAPACE_SLUG,
+                            effectId: METAL_CARAPACE_EFFECT_ID,
+                            armorId: METAL_CARAPACE_ARMOR_ID,
+                            shield: {
+                                sourceId: METAL_CARAPACE_SHIELD_ID,
+                                slug: METAL_CARAPACE_SHIELD_SLUG
                             }
                         }
-
-                        // If we created the shield, set it as held
-                        const metalCarapaceShield = createdItems.find(item => item.sourceId === METAL_CARAPACE_SHIELD_ID);
-                        if (metalCarapaceShield) {
-                            updates.push(
-                                {
-                                    "_id": metalCarapaceShield.id,
-                                    "system": {
-                                        "equipped": {
-                                            "carryType": "held",
-                                            "handsHeld": 1
-                                        },
-                                        "hp.value": metalCarapaceShield.system.hp.max
-                                    }
-                                }
-                            );
-                        }
-
-                        if (updates.length) {
-                            actor.updateEmbeddedDocuments("Item", updates);
-                        }
-                    })();
+                    );
 
                     return;
                 }
@@ -139,93 +57,30 @@ export class MetalCarapace {
         Hooks.on(
             "preDeleteItem",
             (item, context) => {
-                const actor = item.actor;
-                if (!actor) {
-                    return;
-                }
-
-                if (item.sourceId === METAL_CARAPACE_EFFECT_ID) {
-                    const deletes = [];
-
-                    if (!context.skipDeleteArmor) {
-                        const metalCarapaceArmor = actor.itemTypes.armor.find(armor => armor.sourceId === METAL_CARAPACE_ARMOR_ID);
-                        if (metalCarapaceArmor) {
-                            deletes.push(metalCarapaceArmor.id);
-
-                            // Re-equip the previous armor
-                            const previousArmorData = metalCarapaceArmor.flags["pf2e-kineticists-companion"]?.["previous-armor"];
-                            if (previousArmorData) {
-                                actor.itemTypes.armor.find(armor => armor.id === previousArmorData.id)?.update(
-                                    {
-                                        "system": {
-                                            "bulk.value": previousArmorData.bulk,
-                                            "equipped.inSlot": true
-                                        }
-                                    }
-                                );
-                            }
-                        }
+                return ArmorImpulse.preDeleteItem(
+                    item,
+                    context,
+                    {
+                        effectId: METAL_CARAPACE_EFFECT_ID,
+                        armorId: METAL_CARAPACE_ARMOR_ID,
+                        shieldSlug: METAL_CARAPACE_SHIELD_SLUG
                     }
-
-                    const metalCarapaceShield = actor.itemTypes.shield.find(shield => shield.sourceId === METAL_CARAPACE_SHIELD_ID);
-                    if (metalCarapaceShield) {
-                        deletes.push(metalCarapaceShield.id);
-                    }
-
-                    if (deletes.length) {
-                        actor.deleteEmbeddedDocuments("Item", deletes, { skipDeleteEffect: true });
-                    }
-                } else if (item.sourceId === METAL_CARAPACE_ARMOR_ID && !context.skipDeleteEffect) {
-                    const metalCarapaceEffect = actor.itemTypes.effect.find(effect => effect.sourceId === METAL_CARAPACE_EFFECT_ID);
-                    if (metalCarapaceEffect) {
-                        metalCarapaceEffect.delete();
-                        return false;
-                    }
-                }
+                );
             }
         );
 
         Hooks.on(
             "preUpdateItem",
             (item, update) => {
-                if (item.sourceId !== METAL_CARAPACE_SHIELD_ID) {
-                    return;
-                }
-
-                // We only care if we're updating the shield's HP
-                if (!(update.system?.hp && Object.hasOwn(update.system?.hp, "value"))) {
-                    return;
-                }
-
-                if (update.system.hp.value <= item.system.hp.brokenThreshold) {
-                    item.delete();
-
-                    Chat.postToChat(item.actor, this.localize("shield-destroyed", { name: item.actor.name }), item.img);
-
-                    return false;
-                }
+                return ArmorImpulse.handleShieldDamage(
+                    item,
+                    update,
+                    {
+                        impulseSlug: METAL_CARAPACE_SLUG,
+                        shieldSlug: METAL_CARAPACE_SHIELD_SLUG
+                    }
+                );
             }
         );
-    }
-
-    static async #shouldCreateShield(actor) {
-        if (!actor.handsFree) {
-            return false;
-        }
-
-        const createShieldSetting = game.settings.get("pf2e-kineticists-companion", "metal-carapace-shield-prompt");
-        if (createShieldSetting === "always") {
-            return true;
-        } else if (createShieldSetting === "never") {
-            return false;
-        }
-
-        const response = await DialogPrompt.prompt(localize("shield-prompt.title"), localize("shield-prompt.content"));
-
-        if (response.remember) {
-            game.settings.set("pf2e-kineticists-companion", "metal-carapace-shield-prompt", response.answer ? "always" : "never");
-        }
-
-        return response.answer;
     }
 } 
