@@ -1,10 +1,15 @@
+## 1.4.0 - 2024-11-04 (Pathfinder 2e 6.6.1)
+- Improve Armor in Earth, Hardwood Armor, and Metal Carapace automation:
+    - Add options to remove duration from the effects, to allow handwaving of their durations.
+    - Add handling for deleting the armor directly from the inventory.
+
 ## 1.3.2 - 2024-11-04 (Pathfinder 2e 6.6.1)
-- Added Polish translation (thanks to @Lioheart).
-- Fixed error processing damage with Timber Sentinel automation is enabled.
+- Add Polish translation (thanks to @Lioheart).
+- Fix error processing damage with Timber Sentinel automation is enabled.
 
 ## 1.3.1 - 2024-11-03 (Pathfinder 2e 6.6.1)
 - Add setting to disable automatically applying Thermal Nimbus damage.
-- Moved Timber Sentinel to be a hazard instead of an NPC, so it will not provide flanking.
+- Move Timber Sentinel to be a hazard instead of an NPC, so it will not provide flanking.
 - Make Protector Tree token respect prototype token settings.
 
 ## 1.3.0 - 2024-11-02 (Pathfinder 2e 6.6.1)

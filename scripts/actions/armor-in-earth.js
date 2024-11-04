@@ -22,7 +22,18 @@ export class ArmorInEarth {
                     // Delete any existing Armor in Earth effect, and create a new one
                     await actor.itemTypes.effect.find(effect => effect.sourceId === ARMOR_IN_EARTH_EFFECT_ID)?.delete({ skipDeleteArmor: true });
 
-                    creates.push((await fromUuid(ARMOR_IN_EARTH_EFFECT_ID)).toObject());
+                    const armorInEarthEffectSource = (await fromUuid(ARMOR_IN_EARTH_EFFECT_ID)).toObject();
+
+                    if (game.settings.get("pf2e-kineticists-companion", "armor-in-earth-unlimited-duration")) {
+                        armorInEarthEffectSource.system.duration = {
+                            expiry: null,
+                            sustained: false,
+                            unit: "unlimited",
+                            value: -1
+                        };
+                    }
+
+                    creates.push(armorInEarthEffectSource);
 
                     // If we don't already have an Armor in Earth armor item, create one
                     const existingArmorInEarthArmor = actor.itemTypes.armor.find(effect => effect.sourceId === ARMOR_IN_EARTH_ARMOR_ID);
@@ -80,40 +91,44 @@ export class ArmorInEarth {
         Hooks.on(
             "preDeleteItem",
             (item, context) => {
-                if (item.sourceId !== ARMOR_IN_EARTH_EFFECT_ID || context.skipDeleteArmor) {
-                    return;
-                }
-
                 const actor = item.actor;
                 if (!actor) {
                     return;
                 }
 
-                const armorInEarthArmor = actor.itemTypes.armor.find(armor => armor.sourceId === ARMOR_IN_EARTH_ARMOR_ID);
-                if (!armorInEarthArmor) {
-                    return;
-                }
-
-                armorInEarthArmor.delete();
-
-                const previousArmorData = armorInEarthArmor.flags["pf2e-kineticists-companion"]?.["previous-armor"];
-                if (!previousArmorData) {
-                    return;
-                }
-
-                const previousArmor = actor.itemTypes.armor.find(armor => armor.id === previousArmorData.id);
-                if (!previousArmor) {
-                    return;
-                }
-
-                previousArmor.update(
-                    {
-                        "system": {
-                            "bulk.value": previousArmorData.bulk,
-                            "equipped.inSlot": true
-                        }
+                if (item.sourceId === ARMOR_IN_EARTH_EFFECT_ID && !context.skipDeleteArmor) {
+                    const armorInEarthArmor = actor.itemTypes.armor.find(armor => armor.sourceId === ARMOR_IN_EARTH_ARMOR_ID);
+                    if (!armorInEarthArmor) {
+                        return;
                     }
-                );
+
+                    armorInEarthArmor.delete({ skipDeleteEffect: true });
+
+                    const previousArmorData = armorInEarthArmor.flags["pf2e-kineticists-companion"]?.["previous-armor"];
+                    if (!previousArmorData) {
+                        return;
+                    }
+
+                    const previousArmor = actor.itemTypes.armor.find(armor => armor.id === previousArmorData.id);
+                    if (!previousArmor) {
+                        return;
+                    }
+
+                    previousArmor.update(
+                        {
+                            "system": {
+                                "bulk.value": previousArmorData.bulk,
+                                "equipped.inSlot": true
+                            }
+                        }
+                    );
+                } else if (item.sourceId === ARMOR_IN_EARTH_ARMOR_ID && !context.skipDeleteEffect) {
+                    const armorInEarthEffect = actor.itemTypes.effect.find(effect => effect.sourceId === ARMOR_IN_EARTH_EFFECT_ID);
+                    if (armorInEarthEffect) {
+                        armorInEarthEffect.delete();
+                        return false;
+                    }
+                }
             }
         );
     }

@@ -26,7 +26,18 @@ export class HardwoodArmor {
                         await actor.itemTypes.shield.find(shield => shield.slug === "hardwood-shield")?.delete();
                         await actor.itemTypes.effect.find(effect => effect.sourceId === HARDWOOD_ARMOR_EFFECT_ID)?.delete({ skipDeleteArmor: true });
 
-                        creates.push((await fromUuid(HARDWOOD_ARMOR_EFFECT_ID)).toObject());
+                        const hardwoodArmorEffectSource = (await fromUuid(HARDWOOD_ARMOR_EFFECT_ID)).toObject();
+
+                        if (game.settings.get("pf2e-kineticists-companion", "hardwood-armor-unlimited-duration")) {
+                            hardwoodArmorEffectSource.system.duration = {
+                                expiry: null,
+                                sustained: false,
+                                unit: "unlimited",
+                                value: -1
+                            };
+                        }
+
+                        creates.push(hardwoodArmorEffectSource);
 
                         // If we don't already have a Hardwood Armor item, create one
                         const existingHardwoodArmor = actor.itemTypes.armor.find(armor => armor.sourceId === HARDWOOD_ARMOR_ARMOR_ID);
@@ -113,43 +124,47 @@ export class HardwoodArmor {
         Hooks.on(
             "preDeleteItem",
             (item, context) => {
-                if (item.sourceId !== HARDWOOD_ARMOR_EFFECT_ID) {
-                    return;
-                }
-
                 const actor = item.actor;
                 if (!actor) {
                     return;
                 }
 
-                const deletes = [];
+                if (item.sourceId === HARDWOOD_ARMOR_EFFECT_ID) {
+                    const deletes = [];
 
-                if (!context.skipDeleteArmor) {
-                    const hardwoodArmor = actor.itemTypes.armor.find(armor => armor.sourceId === HARDWOOD_ARMOR_ARMOR_ID);
-                    if (hardwoodArmor) {
-                        deletes.push(hardwoodArmor.id);
+                    if (!context.skipDeleteArmor) {
+                        const hardwoodArmor = actor.itemTypes.armor.find(armor => armor.sourceId === HARDWOOD_ARMOR_ARMOR_ID);
+                        if (hardwoodArmor) {
+                            deletes.push(hardwoodArmor.id);
 
-                        const previousArmorData = hardwoodArmor.flags["pf2e-kineticists-companion"]?.["previous-armor"];
-                        if (previousArmorData) {
-                            actor.itemTypes.armor.find(armor => armor.id === previousArmorData.id)?.update(
-                                {
-                                    "system": {
-                                        "bulk.value": previousArmorData.bulk,
-                                        "equipped.inSlot": true
+                            const previousArmorData = hardwoodArmor.flags["pf2e-kineticists-companion"]?.["previous-armor"];
+                            if (previousArmorData) {
+                                actor.itemTypes.armor.find(armor => armor.id === previousArmorData.id)?.update(
+                                    {
+                                        "system": {
+                                            "bulk.value": previousArmorData.bulk,
+                                            "equipped.inSlot": true
+                                        }
                                     }
-                                }
-                            );
+                                );
+                            }
                         }
                     }
-                }
 
-                const hardwoodShield = actor.itemTypes.shield.find(shield => shield.slug === "hardwood-shield");
-                if (hardwoodShield) {
-                    deletes.push(hardwoodShield.id);
-                }
+                    const hardwoodShield = actor.itemTypes.shield.find(shield => shield.slug === "hardwood-shield");
+                    if (hardwoodShield) {
+                        deletes.push(hardwoodShield.id);
+                    }
 
-                if (deletes.length) {
-                    actor.deleteEmbeddedDocuments("Item", deletes);
+                    if (deletes.length) {
+                        actor.deleteEmbeddedDocuments("Item", deletes, { skipDeleteEffect: true });
+                    }
+                } else if (item.sourceId === HARDWOOD_ARMOR_ARMOR_ID && !context.skipDeleteEffect) {
+                    const hardwoodArmorEffect = actor.itemTypes.effect.find(effect => effect.sourceId === HARDWOOD_ARMOR_EFFECT_ID);
+                    if (hardwoodArmorEffect) {
+                        hardwoodArmorEffect.delete();
+                        return false;
+                    }
                 }
             }
         );

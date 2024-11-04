@@ -26,7 +26,18 @@ export class MetalCarapace {
                         await actor.itemTypes.shield.find(shield => shield.sourceId === METAL_CARAPACE_SHIELD_ID)?.delete();
                         await actor.itemTypes.effect.find(effect => effect.sourceId === METAL_CARAPACE_EFFECT_ID)?.delete({ skipDeleteArmor: true });
 
-                        creates.push((await fromUuid(METAL_CARAPACE_EFFECT_ID)).toObject());
+                        const metalCarapaceEffectSource = (await fromUuid(METAL_CARAPACE_EFFECT_ID)).toObject();
+
+                        if (game.settings.get("pf2e-kineticists-companion", "metal-carapace-unlimited-duration")) {
+                            metalCarapaceEffectSource.system.duration = {
+                                expiry: null,
+                                sustained: false,
+                                unit: "unlimited",
+                                value: -1
+                            };
+                        }
+
+                        creates.push(metalCarapaceEffectSource);
 
                         // If we don't already have a Metal Carapace armor item, create one
                         const existingMetalCarapaceArmor = actor.itemTypes.armor.find(armor => armor.sourceId === METAL_CARAPACE_ARMOR_ID);
@@ -128,44 +139,48 @@ export class MetalCarapace {
         Hooks.on(
             "preDeleteItem",
             (item, context) => {
-                if (item.sourceId !== METAL_CARAPACE_EFFECT_ID) {
-                    return;
-                }
-
                 const actor = item.actor;
                 if (!actor) {
                     return;
                 }
 
-                const deletes = [];
+                if (item.sourceId === METAL_CARAPACE_EFFECT_ID) {
+                    const deletes = [];
 
-                if (!context.skipDeleteArmor) {
-                    const metalCarapaceArmor = actor.itemTypes.armor.find(armor => armor.sourceId === METAL_CARAPACE_ARMOR_ID);
-                    if (metalCarapaceArmor) {
-                        deletes.push(metalCarapaceArmor.id);
+                    if (!context.skipDeleteArmor) {
+                        const metalCarapaceArmor = actor.itemTypes.armor.find(armor => armor.sourceId === METAL_CARAPACE_ARMOR_ID);
+                        if (metalCarapaceArmor) {
+                            deletes.push(metalCarapaceArmor.id);
 
-                        // Re-equip the previous armor
-                        const previousArmorData = metalCarapaceArmor.flags["pf2e-kineticists-companion"]?.["previous-armor"];
-                        if (previousArmorData) {
-                            actor.itemTypes.armor.find(armor => armor.id === previousArmorData.id)?.update(
-                                {
-                                    "system": {
-                                        "bulk.value": previousArmorData.bulk,
-                                        "equipped.inSlot": true
+                            // Re-equip the previous armor
+                            const previousArmorData = metalCarapaceArmor.flags["pf2e-kineticists-companion"]?.["previous-armor"];
+                            if (previousArmorData) {
+                                actor.itemTypes.armor.find(armor => armor.id === previousArmorData.id)?.update(
+                                    {
+                                        "system": {
+                                            "bulk.value": previousArmorData.bulk,
+                                            "equipped.inSlot": true
+                                        }
                                     }
-                                }
-                            );
+                                );
+                            }
                         }
                     }
-                }
 
-                const metalCarapaceShield = actor.itemTypes.shield.find(shield => shield.sourceId === METAL_CARAPACE_SHIELD_ID);
-                if (metalCarapaceShield) {
-                    deletes.push(metalCarapaceShield.id);
-                }
+                    const metalCarapaceShield = actor.itemTypes.shield.find(shield => shield.sourceId === METAL_CARAPACE_SHIELD_ID);
+                    if (metalCarapaceShield) {
+                        deletes.push(metalCarapaceShield.id);
+                    }
 
-                if (deletes.length) {
-                    actor.deleteEmbeddedDocuments("Item", deletes);
+                    if (deletes.length) {
+                        actor.deleteEmbeddedDocuments("Item", deletes, { skipDeleteEffect: true });
+                    }
+                } else if (item.sourceId === METAL_CARAPACE_ARMOR_ID && !context.skipDeleteEffect) {
+                    const metalCarapaceEffect = actor.itemTypes.effect.find(effect => effect.sourceId === METAL_CARAPACE_EFFECT_ID);
+                    if (metalCarapaceEffect) {
+                        metalCarapaceEffect.delete();
+                        return false;
+                    }
                 }
             }
         );
