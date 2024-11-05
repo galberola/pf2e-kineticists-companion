@@ -61,6 +61,9 @@
             "shield-destroyed": "{name}'s Metal Carapace Shield was broken and has crumbled to flakes of rust.",
             "armor-destroyed": "{name}'s Metal Carapace was shattered from the critical hit."
         },
+        "oceans-balm": {
+            "immune": "{name} is currently immune to healing from Ocean's Balm."
+        },
         "thermal-nimbus": {
             "name": "Thermal Nimbus",
             "damage-roll-not-found": "The DamageRoll class was not found, so Thermal Nimbus automation will not function.",
@@ -84,6 +87,9 @@
             },
             "take-damage": "{name} intercepts the Strike and takes {damage} damage.",
             "take-damage-destroyed": "{name} intercepts the Strike, takes {damage} damage, and is destroyed."
+        },
+        "torrent-in-the-blood": {
+            "immune": "{name} is currently immune to Torrent in the Blood."
         }
     }
 }

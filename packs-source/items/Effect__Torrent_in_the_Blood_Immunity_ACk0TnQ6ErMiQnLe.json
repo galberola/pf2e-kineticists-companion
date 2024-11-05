@@ -1,0 +1,66 @@
+{
+  "folder": "sX42F6wmsHCvgtvC",
+  "name": "Effect: Torrent in the Blood Immunity",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>You are immune to @UUID[Compendium.pf2e.feats-srd.ijsMs8iv9AsHQWrv]{Torrent in the Blood}.</p>"
+    },
+    "rules": [],
+    "slug": "effect-torrent-in-the-blood-immunity",
+    "_migration": {
+      "version": 0.933,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "",
+      "authors": "",
+      "license": "OGL",
+      "remaster": false
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 10,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false
+  },
+  "_id": "ACk0TnQ6ErMiQnLe",
+  "img": "icons/magic/water/pseudopod-swirl-blue.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "TrPGLuiZR0lPpyh3": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "pf2e",
+    "systemVersion": "6.6.1",
+    "createdTime": 1730763114909,
+    "modifiedTime": 1730763289292,
+    "lastModifiedBy": "TrPGLuiZR0lPpyh3"
+  },
+  "_key": "!items!ACk0TnQ6ErMiQnLe"
+}

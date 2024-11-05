@@ -2,7 +2,7 @@
 A module for the Foundry VTT Pathfinder 2e system that provides improved automation for the Kineticist class.
 
 ![Github All Releases](https://img.shields.io/github/downloads/JDCalvert/pf2e-kineticists-companion/total.svg)
-![Github Latest Release](https://img.shields.io/github/downloads/JDCalvert/pf2e-kineticists-companion/1.4.1/total)
+![Github Latest Release](https://img.shields.io/github/downloads/JDCalvert/pf2e-kineticists-companion/1.5.0/total)
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/jdcalvert)
 
@@ -13,38 +13,114 @@ In summary, each release of this module only officially supports the latest rele
 
 ## Features
 
-### Thermal Nimbus Automation
-When you use the Thermal Nimbus stance, enemies inside the aura will receive the <b>Effect: Thermal Nimbus Damage</b> effect. If an enemy is inside the aura at the
-start of its turn, or they move into the aura during their turn, the Thermal Nimbus damage will automatically be rolled and applied to that enemy.
+### :earth_americas::earth_asia::earth_africa:
+### Armor in Earth
+When you use the Armor in Earth impulse, your armor (if any) is replaced with **Armor in Earth** armor. The armor contains duplicates of any runes on your armor.
 
-<small><b>Note:</b> A gamemaster must be present for this damage to be applied automatically.</small>
-
-### Fresh Produce Automation
-When you use the Fresh Produce impulse, a Fresh Produce item is created in your target's inventory* (or your inventory, if you have no target). If you use Fresh
-Produce on yourself in combat, or on anyone outside of combat, the item is posted to chat with a "use" button for easy immediate use. Using this item will
-automatically apply the healing and the void resistance effect.
-
-Any Fresh Produce items created are automatically deleted at the start of your next turn*.
-
-<small>*A gamemaster or the actor's owner must be present.</small>
-
-### Armor in Earth, Hardwood Armor, and Metal Carapace Automation
-When you use any of these actions, your armour will be replaced with the impulse's armour. You will also have an option to create a shield, if applicable - this is configurable in settings to either always create a shield (if you have a free hand), never create a shield, or ask each time. The shields are removed when they are broken, and Metal Carapace will end if you take critical hit damage.
-
-### Timber Sentinel Automation
-When you use the Timber Sentinel impulse, you will be able to choose a space to place the protector tree, and it will spawn. Any allies that take damage from
-Strikes will automatically have the damage reduced by the tree.
+When the impulse ends, the Armor in Earth armor is removed and your original armor (if any) is re-equipped.
 
 <small>
-    <b>Notes:</b>
+    <b>Configuration</b>
+    <ul>
+        <li>The impulse can be configured to have an unlimited duration to handwave re-using the impulse during exploration mode.</li>
+    </ul>
+</small>
+
+### :fire::fire::fire:
+
+### Thermal Nimbus
+When you use the Thermal Nimbus stance, enemies inside the aura receive the **Effect: Thermal Nimbus Damage** effect. If an enemy is inside the aura at the start of its turn, or they move into the aura during their turn, the Thermal Nimbus damage is automatically rolled and applied to that enemy.
+
+<small>
+    <b>Notes</b>
+    <ul>
+        <li>A gamemaster must be present for this damage to be applied automatically.</li>
+    </ul>
+    <b>Configuration</b>
+    <ul>
+        <li>The automatic application of damage can be disabled.</li>
+    </ul>
+</small>
+
+### :deciduous_tree::deciduous_tree::deciduous_tree:
+
+### Fresh Produce
+When you use the Fresh Produce impulse, a **Fresh Produce** item is created in your target's inventory (or your inventory, if you have no target). If you use Fresh Produce on yourself in combat, or on anyone outside of combat, the item is posted to chat with a "use" button for easy immediate use. Using this item automatically applies the healing and the void resistance effect.
+
+Any unused Fresh Produce items are removed at the start of your next turn.
+
+<small>
+    <b>Notes</b>
+    <ul>
+        <li>A gamemaster or owner must be present for manipulation of another actor's inventory</li>
+    </ul>
+</small>
+
+### Hardwood Armor
+When you use the Hardwood Armor impulse, your armor (if any) is replaced with Hardwood Armor and, if you have a free hand, you are prompted to create a wooden shield.
+
+When the impulse ends, the Hardwood Armor and shield are removed and your original armor (if any) is re-equipped. If the shield takes enough damage to become broken, it is automatically removed.
+
+<small>
+    <b>Configuration</b>
+    <ul>
+        <li>The impulse can be configured to have an unlimited duration to handwave re-using the impulse during exploration mode.</li>
+        <li>The shield prompt can be configured to always ask, always create, or never create, the shield.</li>
+    </ul>
+</small>
+
+### Timber Sentinel
+When you use the Timber Sentinel impulse, you are prompted to select a space to spawn the protector tree. Any allies that take damage from Strikes automatically have the damage reduced by the tree.
+
+<small>
+    <b>Notes</b>
     <ul>
         <li>A gamemaster must be present for all parts of this automation to function.</li>
         <li>Damage with multiple instances is reduced in the order that it appears in the data. Any instance that is reduced to 0 will not process at all for the target, and so will not trigger resistances and weaknesses.</li>
-        <li>The following modules are all required for this automation to function:</li>
-        <ul>
-            <li><a href="https://foundryvtt.com/packages/portal-lib">Portal</a></li>
-            <li><a href="https://foundryvtt.com/packages/socketlib">socketlib</a></li>
-            <li><a href="https://foundryvtt.com/packages/lib-wrapper">libWrapper</a></li>
-        </ul>
+    </ul>
+    <b>Required Modules</b>
+    <ul>
+        <li><a href="https://foundryvtt.com/packages/portal-lib">Portal</a></li>
+        <li><a href="https://foundryvtt.com/packages/socketlib">socketlib</a></li>
+        <li><a href="https://foundryvtt.com/packages/lib-wrapper">libWrapper</a></li>
+    </ul>
+</small>
+
+### :dagger::shield::hammer_and_wrench:
+
+### Metal Carapace
+When you use the Metal Carapace impulse, your armor (if any) is replaced with **Metal Carapace Armor** and, if you have a free hand, you are prompted to create a wooden shield.
+
+When the impulse ends, the Metal Carapace Armor and shield are removed and your original armor (if any) is re-equipped.
+
+If the shield takes enough damage to become broken, it is automatically removed. If you take damage from a critical hit, the impulse ends.
+
+<small>
+    <b>Configuration</b>
+    <ul>
+        <li>The impulse can be configured to have an unlimited duration to handwave re-using the impulse during exploration mode.</li>
+        <li>The shield prompt can be configured to always ask, always create, or never create, the shield.</li>
+    </ul>
+</small>
+
+### :droplet::ocean::droplet:
+
+### Ocean's Balm
+When you apply the healing from Ocean's Balm impulse, the **Effect: Ocean's Balm** and **Effect: Ocean's Balm Immunity** effects are automatically applied. If you attempt to apply healing from Ocean's Balm again while you have the immunity effect, the healing will not apply (but the fire resistance effect will re-apply).
+
+<small>
+    <b>Required Modules</b>
+    <ul>
+        <li><a href="https://foundryvtt.com/packages/lib-wrapper">libWrapper</a></li>
+    </ul>
+</small>
+
+### Torrent in the Blood
+When you apply healing from the Torrent in the Blood impulse, the **Effect: Torrent in the Blood Immunity** effect is automatically applied. You cannot apply healing from Torrent in the Blood again while you have this effect.
+
+<small>
+    <b>Required Modules</b>
+    <ul>
+        <li><a href="https://foundryvtt.com/packages/lib-wrapper">libWrapper</a></li>
     </ul>
 </small>

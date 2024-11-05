@@ -1,4 +1,5 @@
 import { Chat } from "../utils/chat.js";
+import { HookManager } from "../utils/hook.js";
 import { Socket } from "../utils/socket.js";
 
 const TIMBER_SENTINEL_FEAT_ID = "Compendium.pf2e.feats-srd.Item.aHlcMMNQ85VLK7QT";
@@ -81,16 +82,14 @@ export class TimberSentinel {
             }
         );
 
-        libWrapper.register(
-            "pf2e-kineticists-companion",
+        HookManager.registerCheck(
             "CONFIG.PF2E.Actor.documentClasses.character.prototype.applyDamage",
-            async (applyDamage, data) => await TimberSentinel.#applyDamage(applyDamage, data)
+            async data => await TimberSentinel.#applyDamage(data)
         );
 
-        libWrapper.register(
-            "pf2e-kineticists-companion",
+        HookManager.registerCheck(
             "CONFIG.PF2E.Actor.documentClasses.npc.prototype.applyDamage",
-            async (applyDamage, data) => await TimberSentinel.#applyDamage(applyDamage, data)
+            async data => await TimberSentinel.#applyDamage(data)
         );
     }
 
@@ -154,16 +153,19 @@ export class TimberSentinel {
         actor.createEmbeddedDocuments("Item", [protectorTreeEffectSource]);
     }
 
-    static async #applyDamage(wrapped, data) {
+    /**
+     * @returns Promise<boolean>
+     */
+    static async #applyDamage(data) {
         // If the damage isn't from a strike, apply normally.
         if (!data.rollOptions?.has("origin:action:slug:strike")) {
-            return await wrapped(data);
+            return true;
         }
 
         // If the damage isn't being applied to a token, apply normally.
         const token = data.token?.object;
         if (!token) {
-            return await wrapped(data);
+            return true;
         }
 
         // Find any adjacent tokens that have the Protector Tree effect
@@ -178,12 +180,12 @@ export class TimberSentinel {
             .map(protectorToken => protectorToken.document.uuid);
 
         if (!protectorTreeTokenIds.length) {
-            return await wrapped(data);
+            return true;
         }
 
         if (!game.users.activeGM) {
             ui.notifications.warn(this.localize("no-gamemaster.intercept"));
-            return await wrapped(data);
+            return true;
         }
 
         let remainingDamage = data.damage.total;
@@ -195,12 +197,12 @@ export class TimberSentinel {
 
         // If we reduced the damage to 0, we don't need to apply the damage.
         if (remainingDamage == 0) {
-            return;
+            return false;
         };
 
         data.damage = this.#buildReducedDamage(data.damage, data.damage.total - remainingDamage);
 
-        return await wrapped(data);
+        return true;
     }
 
     /**

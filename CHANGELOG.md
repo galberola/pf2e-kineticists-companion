@@ -1,3 +1,6 @@
+## 1.5.0 - 2024-11-05 (Pathfinder 2e 6.6.1)
+- Add automation for Ocean's Balm and Torrent in the Blood.
+
 ## 1.4.1 - 2024-11-04 (Pathfinder 2e 6.6.1)
 - Update Polish translation.
 
