@@ -1,3 +1,6 @@
+## 1.5.1 - 2024-11-05 (Pathfinder 2e 6.6.1)
+- Fix Torrent in the Blood automation breaking damage application.
+
 ## 1.5.0 - 2024-11-05 (Pathfinder 2e 6.6.1)
 - Add automation for Ocean's Balm and Torrent in the Blood.
 

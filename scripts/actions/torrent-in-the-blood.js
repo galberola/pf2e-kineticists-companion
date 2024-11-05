@@ -42,8 +42,8 @@ export class TorrentInTheBlood {
 
             // Create the immunity effect
             fromUuid(IMMUNITY_EFFECT_ID).then(immunityEffect => actor.createEmbeddedDocuments("Item", [immunityEffect.toObject()]));
-
-            return true;
         }
+
+        return true;
     }
 }
