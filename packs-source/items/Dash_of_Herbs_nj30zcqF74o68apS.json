@@ -1,0 +1,22 @@
+{
+  "name": "Dash of Herbs",
+  "sorting": "a",
+  "folder": null,
+  "type": "Item",
+  "_id": "nj30zcqF74o68apS",
+  "description": "",
+  "sort": 0,
+  "color": null,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "pf2e",
+    "systemVersion": "6.6.1",
+    "createdTime": 1730899507239,
+    "modifiedTime": 1730899507239,
+    "lastModifiedBy": "TaMf9pFfozc15vf9"
+  },
+  "_key": "!folders!nj30zcqF74o68apS"
+}

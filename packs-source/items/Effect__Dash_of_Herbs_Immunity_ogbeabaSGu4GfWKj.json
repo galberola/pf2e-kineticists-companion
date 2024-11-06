@@ -1,15 +1,15 @@
 {
-  "folder": "sX42F6wmsHCvgtvC",
-  "name": "Effect: Torrent in the Blood Immunity",
+  "folder": "nj30zcqF74o68apS",
+  "name": "Effect: Dash of Herbs Immunity",
   "type": "effect",
   "effects": [],
   "system": {
     "description": {
       "gm": "",
-      "value": "<p>You are immune to @UUID[Compendium.pf2e.feats-srd.ijsMs8iv9AsHQWrv]{Torrent in the Blood}.</p>"
+      "value": "<p>You are immune to @UUID[Compendium.pf2e.feats-srd.azyp4nQgAPDI6nKv]{Dash of Herbs}.</p>"
     },
     "rules": [],
-    "slug": "effect-torrent-in-the-blood-immunity",
+    "slug": "effect-dash-of-herbs-immunity",
     "_migration": {
       "version": 0.933,
       "lastMigration": null
@@ -44,12 +44,12 @@
     "context": null,
     "unidentified": false
   },
-  "_id": "ACk0TnQ6ErMiQnLe",
-  "img": "icons/magic/water/pseudopod-swirl-blue.webp",
+  "_id": "ogbeabaSGu4GfWKj",
+  "img": "icons/consumables/plants/leaf-herb-green.webp",
   "sort": 0,
   "ownership": {
     "default": 0,
-    "TrPGLuiZR0lPpyh3": 3
+    "TaMf9pFfozc15vf9": 3
   },
   "flags": {},
   "_stats": {
@@ -58,9 +58,9 @@
     "coreVersion": "12.331",
     "systemId": "pf2e",
     "systemVersion": "6.6.1",
-    "createdTime": 1730763114909,
-    "modifiedTime": 1730899644150,
+    "createdTime": 1730899521249,
+    "modifiedTime": 1730899660156,
     "lastModifiedBy": "TaMf9pFfozc15vf9"
   },
-  "_key": "!items!ACk0TnQ6ErMiQnLe"
+  "_key": "!items!ogbeabaSGu4GfWKj"
 }

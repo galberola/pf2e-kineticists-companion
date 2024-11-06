@@ -2,7 +2,7 @@
 A module for the Foundry VTT Pathfinder 2e system that provides improved automation for the Kineticist class.
 
 ![Github All Releases](https://img.shields.io/github/downloads/JDCalvert/pf2e-kineticists-companion/total.svg)
-![Github Latest Release](https://img.shields.io/github/downloads/JDCalvert/pf2e-kineticists-companion/1.5.1/total)
+![Github Latest Release](https://img.shields.io/github/downloads/JDCalvert/pf2e-kineticists-companion/1.6.0/total)
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/jdcalvert)
 
@@ -43,6 +43,16 @@ When you use the Thermal Nimbus stance, enemies inside the aura receive the **Ef
 </small>
 
 ### :deciduous_tree::deciduous_tree::deciduous_tree:
+
+### Dash of Herbs
+When you apply healing from the Dash of Herbs impulse, the **Effect: Dash of Herbs Immunity** effect is automatically applied. You cannot apply healing from Dash of Herbs again while you have this effect.
+
+<small>
+    <b>Required Modules</b>
+    <ul>
+        <li><a href="https://foundryvtt.com/packages/lib-wrapper">libWrapper</a></li>
+    </ul>
+</small>
 
 ### Fresh Produce
 When you use the Fresh Produce impulse, a **Fresh Produce** item is created in your target's inventory (or your inventory, if you have no target). If you use Fresh Produce on yourself in combat, or on anyone outside of combat, the item is posted to chat with a "use" button for easy immediate use. Using this item automatically applies the healing and the void resistance effect.

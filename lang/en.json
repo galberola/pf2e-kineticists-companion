@@ -21,6 +21,9 @@
                 }
             }
         },
+        "dash-of-herbs": {
+            "immune": "{name} is currently immune to Dash of Herbs."
+        },
         "fresh-produce": {
             "name": "Fresh Produce",
             "target-outside-aura": "Your current target is not inside your kinetic aura.",

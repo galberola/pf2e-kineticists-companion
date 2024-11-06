@@ -1,3 +1,6 @@
+## 1.6.0 - 2024-11-06 (Pathfinder 2e 6.6.1)
+- Add automation for Dash of Herbs.
+
 ## 1.5.1 - 2024-11-05 (Pathfinder 2e 6.6.1)
 - Fix Torrent in the Blood automation breaking damage application.
 

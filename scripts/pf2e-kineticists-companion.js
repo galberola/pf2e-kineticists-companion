@@ -8,6 +8,7 @@ import { TimberSentinel } from "./actions/timber-sentinel.js";
 import { Socket } from "./utils/socket.js";
 import { OceansBalm } from "./actions/oceans-balm.js";
 import { TorrentInTheBlood } from "./actions/torrent-in-the-blood.js";
+import { DashOfHerbs } from "./actions/dash-of-herbs.js";
 
 Hooks.once(
     "socketlib.ready",
@@ -36,6 +37,7 @@ Hooks.on(
         TorrentInTheBlood.initialise();
 
         // Wood
+        DashOfHerbs.initialise();
         FreshProduce.initialise();
         HardwoodArmor.initialise();
         TimberSentinel.initialise();
