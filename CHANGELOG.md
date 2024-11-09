@@ -1,3 +1,7 @@
+## 1.6.1 - 2024-11-09 (Pathfinder 2e 6.6.1)
+- Update Polish translation.
+- Fix Fresh Produce healing amount.
+
 ## 1.6.0 - 2024-11-06 (Pathfinder 2e 6.6.1)
 - Add automation for Dash of Herbs.
 

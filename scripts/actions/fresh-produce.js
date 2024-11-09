@@ -115,7 +115,7 @@ export class FreshProduce {
                     if (targetActor.primaryUpdater == game.user) {
                         const freshProduceSource = (await fromUuid(FRESH_PRODUCE_ITEM_ID)).toObject();
                         freshProduceSource.system.level.value = sourceActor.level;
-                        freshProduceSource.system.damage.formula = `${Math.ceil(sourceActor.level / 2)}d4+${Math.floor(sourceActor.level / 2) * 5 + 1}`;
+                        freshProduceSource.system.damage.formula = `${Math.ceil(sourceActor.level / 2)}d4+${1 + Math.floor((sourceActor.level - 1) / 2) * 5}`;
                         freshProduceSource.flags["pf2e-kineticists-companion"] = {
                             "originSignature": sourceActor.signature
                         };
