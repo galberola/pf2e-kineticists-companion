@@ -1,0 +1,22 @@
+{
+  "name": "Protector Tree",
+  "sorting": "a",
+  "folder": null,
+  "type": "Actor",
+  "_id": "E13f8GF0Kupcswto",
+  "description": "",
+  "sort": 0,
+  "color": null,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "pf2e",
+    "systemVersion": "6.6.1",
+    "createdTime": 1730826978022,
+    "modifiedTime": 1730826978022,
+    "lastModifiedBy": "TaMf9pFfozc15vf9"
+  },
+  "_key": "!folders!E13f8GF0Kupcswto"
+}

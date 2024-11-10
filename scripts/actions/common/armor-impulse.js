@@ -208,7 +208,8 @@ export class ArmorImpulse {
 
         const response = await DialogPrompt.prompt(
             game.i18n.localize(`pf2e-kineticists-companion.${impulseSlug}.shield-prompt.title`),
-            game.i18n.localize(`pf2e-kineticists-companion.${impulseSlug}.shield-prompt.content`)
+            game.i18n.localize(`pf2e-kineticists-companion.${impulseSlug}.shield-prompt.content`),
+            true
         );
 
         if (response.remember) {

@@ -46,6 +46,26 @@
             },
             "shield-destroyed": "{name}'s wooden shield was broken and has decayed."
         },
+        "ignite-the-sun": {
+            "name": "Ignite the Sun",
+            "config": {
+                "enable": {
+                    "name": "Enable Automation"
+                }
+            },
+            "sustain-prompt": {
+                "title": "Sustain",
+                "content": "Would you like to increase the sun's size?"
+            },
+            "no-gamemaster": {
+                "create": "There is no Gamemaster connected to create the sun.",
+                "sustain": "There is no Gamemaster connected to expand or move the sun.",
+                "delete": "There is no Gamemaster connected to delete the sun."
+            },
+            "no-user": {
+                "roll-damage": "There is no active user able to roll damage for {name}'s Ignite the Sun."
+            }
+        },
         "metal-carapace": {
             "name": "Metal Carapace",
             "config": {
@@ -66,6 +86,12 @@
         },
         "oceans-balm": {
             "immune": "{name} is currently immune to healing from Ocean's Balm."
+        },
+        "sustain": {
+            "prompt": {
+                "title": "Sustain",
+                "content": "Choose an effect to sustain"
+            }
         },
         "thermal-nimbus": {
             "name": "Thermal Nimbus",

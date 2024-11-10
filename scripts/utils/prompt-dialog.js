@@ -21,7 +21,7 @@ export class DialogPrompt extends Dialog {
                         callback: () => result(
                             {
                                 answer: false,
-                                remember: this.remember
+                                remember: this.remember ?? false
                             }
                         )
                     }
@@ -30,17 +30,24 @@ export class DialogPrompt extends Dialog {
         );
     }
 
-    static async prompt(title, question) {
-        let content = `<p>${question}</p>`
+    /**
+     * @returns {Promise<{answer: boolean, remember: boolean}>}
+     */
+    static async prompt(title, question, allowRemember) {
+        let content = `
+            <p>${question}</p>
+        `;
 
-        content += `
+        if (allowRemember) {
+            content += `
             <form>
                 <div class="form-group">
                     <input class="remember-checkbox" type="checkbox" id="remember-my-answer" name="remember-my-answer">
                     <label for="remember-my-answer">${localize("dialog.remember-my-answer")}</label>
                 </div>
             </form>
-        `
+            `;
+        }
 
         return new Promise(result => new DialogPrompt(title, content, result).render(true));
     }

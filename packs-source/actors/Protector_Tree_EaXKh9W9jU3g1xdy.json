@@ -163,8 +163,8 @@
   "_id": "EaXKh9W9jU3g1xdy",
   "img": "modules/pf2e-kineticists-companion/assets/protector-tree/protector-tree.webp",
   "items": [],
-  "folder": null,
-  "sort": 0,
+  "folder": "E13f8GF0Kupcswto",
+  "sort": 100000,
   "flags": {
     "pf2e": {
       "editHazard": {
@@ -179,7 +179,7 @@
     "systemId": "pf2e",
     "systemVersion": "6.6.1",
     "createdTime": 1730590092279,
-    "modifiedTime": 1730590576701,
+    "modifiedTime": 1730826979473,
     "lastModifiedBy": "TaMf9pFfozc15vf9"
   },
   "_key": "!actors!EaXKh9W9jU3g1xdy"

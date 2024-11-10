@@ -1,3 +1,6 @@
+## 1.7.0 - 2024-11-10 (Pathfinder 2e 6.6.2)
+- Add automation for Ignite the Sun.
+
 ## 1.6.1 - 2024-11-09 (Pathfinder 2e 6.6.1)
 - Update Polish translation.
 - Fix Fresh Produce healing amount.

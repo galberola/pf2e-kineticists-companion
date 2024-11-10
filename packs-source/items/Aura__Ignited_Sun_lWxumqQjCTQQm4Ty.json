@@ -1,0 +1,87 @@
+{
+  "folder": "tdCWdtZLXMwxW4kG",
+  "name": "Aura: Ignited Sun",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>This token has been created by @UUID[Compendium.pf2e.feats-srd.uKeUPPqV1cNnIy0h]{Ignite The Sun}.</p>"
+    },
+    "rules": [
+      {
+        "key": "Aura",
+        "radius": 1000,
+        "effects": [
+          {
+            "uuid": "Compendium.pf2e-kineticists-companion.items.Item.dk4uhqV6lVyeyOWJ",
+            "affects": "allies",
+            "includesSelf": false
+          }
+        ],
+        "appearance": {
+          "highlight": {
+            "color": "#000000",
+            "alpha": 0
+          },
+          "border": {
+            "alpha": 0
+          }
+        }
+      }
+    ],
+    "slug": "aura-ignited-sun",
+    "_migration": {
+      "version": 0.933,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "",
+      "authors": "",
+      "license": "OGL",
+      "remaster": false
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": -1,
+      "unit": "unlimited",
+      "expiry": null,
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false
+  },
+  "_id": "lWxumqQjCTQQm4Ty",
+  "img": "modules/pf2e-kineticists-companion/assets/ignite-the-sun/sun.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "TrPGLuiZR0lPpyh3": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "pf2e",
+    "systemVersion": "6.6.1",
+    "createdTime": 1730847380914,
+    "modifiedTime": 1730854141884,
+    "lastModifiedBy": "TrPGLuiZR0lPpyh3"
+  },
+  "_key": "!items!lWxumqQjCTQQm4Ty"
+}

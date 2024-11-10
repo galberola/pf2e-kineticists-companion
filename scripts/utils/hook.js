@@ -23,7 +23,7 @@ export class HookManager {
                         }
                     }
 
-                    wrapper(...args);
+                    return await wrapper(...args);
                 },
                 "MIXED"
             );

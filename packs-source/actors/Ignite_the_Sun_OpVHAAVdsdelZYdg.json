@@ -1,0 +1,22 @@
+{
+  "name": "Ignite the Sun",
+  "sorting": "a",
+  "folder": null,
+  "type": "Actor",
+  "_id": "OpVHAAVdsdelZYdg",
+  "description": "",
+  "sort": 0,
+  "color": null,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "pf2e",
+    "systemVersion": "6.6.1",
+    "createdTime": 1730827009545,
+    "modifiedTime": 1730827009545,
+    "lastModifiedBy": "TaMf9pFfozc15vf9"
+  },
+  "_key": "!folders!OpVHAAVdsdelZYdg"
+}

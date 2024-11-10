@@ -1,0 +1,101 @@
+{
+  "folder": "tdCWdtZLXMwxW4kG",
+  "name": "Effect: Sun's Light",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>You are in the light of a sun created by @UUID[Compendium.pf2e.feats-srd.uKeUPPqV1cNnIy0h]{Ignite The Sun}. You deal an additional 1d6 fire damage with all Strikes, spells that deal fire damage, and impulses that deal fire damage.</p>"
+    },
+    "rules": [
+      {
+        "key": "DamageDice",
+        "label": "Sun's Light",
+        "selector": "strike-damage",
+        "diceNumber": 1,
+        "dieSize": "d6",
+        "damageType": "fire"
+      },
+      {
+        "key": "DamageDice",
+        "label": "Sun's Light",
+        "selector": "spell-damage",
+        "predicate": [
+          "item:damage:fire"
+        ],
+        "diceNumber": 1,
+        "dieSize": "d6",
+        "damageType": "fire"
+      },
+      {
+        "key": "DamageDice",
+        "label": "Sun's Light",
+        "selector": "damage",
+        "predicate": [
+          "impulse",
+          "fire",
+          {
+            "not": "action:ignite-the-sun"
+          }
+        ],
+        "diceNumber": 1,
+        "dieSize": "d6",
+        "damageType": "fire"
+      }
+    ],
+    "slug": "effect-suns-light",
+    "_migration": {
+      "version": 0.933,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "",
+      "authors": "",
+      "license": "OGL",
+      "remaster": false
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": -1,
+      "unit": "unlimited",
+      "expiry": null,
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false
+  },
+  "_id": "dk4uhqV6lVyeyOWJ",
+  "img": "modules/pf2e-kineticists-companion/assets/ignite-the-sun/sun-icon-blue.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "TrPGLuiZR0lPpyh3": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "pf2e",
+    "systemVersion": "6.6.1",
+    "createdTime": 1730847848198,
+    "modifiedTime": 1731197122036,
+    "lastModifiedBy": "TrPGLuiZR0lPpyh3"
+  },
+  "_key": "!items!dk4uhqV6lVyeyOWJ"
+}

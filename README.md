@@ -2,7 +2,7 @@
 A module for the Foundry VTT Pathfinder 2e system that provides improved automation for the Kineticist class.
 
 ![Github All Releases](https://img.shields.io/github/downloads/JDCalvert/pf2e-kineticists-companion/total.svg)
-![Github Latest Release](https://img.shields.io/github/downloads/JDCalvert/pf2e-kineticists-companion/1.6.1/total)
+![Github Latest Release](https://img.shields.io/github/downloads/JDCalvert/pf2e-kineticists-companion/1.7.0/total)
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/jdcalvert)
 
@@ -27,6 +27,31 @@ When the impulse ends, the Armor in Earth armor is removed and your original arm
 </small>
 
 ### :fire::fire::fire:
+
+### Ignite the Sun
+When you use the Ignite the Sun impulse, you are prompted to choose a space to spawn your miniature sun. The sun is then created as an actor, a template (showing where the sun's damage applies), light source. The actor's aura provides allies with the 1d6 fire damage bonus.
+
+When you use the Sustain action, you are prompted to Sustain the feat's effects, if you have not already done so this turn. When you do, you are asked if you wish to increase the sun's size (answering no will still sustain the effect). If you do not Sustain the effect, the feat will end at the end of your turn.
+
+When you create or sustain the sun, and there are tokens inside its template (with its increased size, if you chose to do so) that have not been damaged by the sun this round, the feat's damage automatically rolls. If you have PF2e Toolbelt with Target Helper enabled, the damage is targetted correctly.
+
+<small>
+    <b>Notes</b>
+    <ul>
+        <li>A gamemaster must be present for all parts of this automation to function.</li>
+        <li>Saving throws and damage application are not automated.</li>
+    </ul>
+    <b>Required Modules</b>
+    <ul>
+        <li><a href="https://foundryvtt.com/packages/portal-lib">Portal</a></li>
+        <li><a href="https://foundryvtt.com/packages/socketlib">socketlib</a></li>
+        <li><a href="https://foundryvtt.com/packages/lib-wrapper">libWrapper</a></li>
+    </ul>
+    <b>Recommended Modules</b>
+    <ul>
+        <li><a href="https://github.com/reonZ/pf2e-toolbelt">PF2e Toolbelt</a> with Target Helper enabled.</li>
+    </ul>
+</small>
 
 ### Thermal Nimbus
 When you use the Thermal Nimbus stance, enemies inside the aura receive the **Effect: Thermal Nimbus Damage** effect. If an enemy is inside the aura at the start of its turn, or they move into the aura during their turn, the Thermal Nimbus damage is automatically rolled and applied to that enemy.

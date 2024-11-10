@@ -1,0 +1,66 @@
+{
+  "folder": "tdCWdtZLXMwxW4kG",
+  "name": "Effect: Ignite the Sun",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>You have an active instance of @UUID[Compendium.pf2e.feats-srd.uKeUPPqV1cNnIy0h]{Ignite The Sun}. </p>"
+    },
+    "rules": [],
+    "slug": "effect-ignite-the-sun",
+    "_migration": {
+      "version": 0.933,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "",
+      "authors": "",
+      "license": "OGL",
+      "remaster": false
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-end",
+      "sustained": true
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false
+  },
+  "_id": "G3tO0dV1mSZ2NWCN",
+  "img": "modules/pf2e-kineticists-companion/assets/ignite-the-sun/sun-icon-black.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "TrPGLuiZR0lPpyh3": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "12.331",
+    "systemId": "pf2e",
+    "systemVersion": "6.6.1",
+    "createdTime": 1730845536166,
+    "modifiedTime": 1731197116350,
+    "lastModifiedBy": "TrPGLuiZR0lPpyh3"
+  },
+  "_key": "!items!G3tO0dV1mSZ2NWCN"
+}

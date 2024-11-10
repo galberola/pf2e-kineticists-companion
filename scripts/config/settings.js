@@ -45,6 +45,19 @@ export class Settings {
 
         game.settings.register(
             "pf2e-kineticists-companion",
+            "ignite-the-sun-enable",
+            {
+                name: game.i18n.localize("pf2e-kineticists-companion.ignite-the-sun.config.enable.name"),
+                scope: "world",
+                config: true,
+                type: Boolean,
+                default: true,
+                requiresReload: true
+            }
+        );
+
+        game.settings.register(
+            "pf2e-kineticists-companion",
             "metal-carapace-shield-prompt",
             {
                 name: game.i18n.localize("pf2e-kineticists-companion.metal-carapace.config.create-shield.name"),
@@ -102,56 +115,50 @@ export class Settings {
         Hooks.on(
             "renderSettingsConfig",
             (_, html) => {
-                const categorise = (groupName, settingNames) => {
-                    for (const settingName of settingNames) {
-                        html.find(`div[data-setting-id="pf2e-kineticists-companion.${settingName}"]`)
-                            ?.closest(".form-group")
-                            ?.addClass(groupName);
-                    }
+                const categories = groups => {
+                    for (const groupName in groups) {
+                        for (const settingName of groups[groupName]) {
+                            html.find(`div[data-setting-id="pf2e-kineticists-companion.${settingName}"]`)
+                                ?.closest(".form-group")
+                                ?.addClass(groupName);
+                        }
 
-                    html.find(`.${groupName}`)
-                        ?.wrapAll(`<fieldset style="border: 1px solid #a1a1a1;"></fieldset>`)
-                        ?.parent()
-                        ?.prepend(`<legend>${game.i18n.localize(`pf2e-kineticists-companion.${groupName}.name`)}</legend>`);
+                        html.find(`.${groupName}`)
+                            ?.wrapAll(`<fieldset style="border: 1px solid #a1a1a1;"></fieldset>`)
+                            ?.parent()
+                            ?.prepend(`<legend>${game.i18n.localize(`pf2e-kineticists-companion.${groupName}.name`)}</legend>`);
+                    }
                 };
 
-                categorise(
-                    "armor-in-earth",
-                    [
-                        "armor-in-earth-unlimited-duration"
-                    ]
-                );
-
-                categorise(
-                    "hardwood-armor",
-                    [
-                        "hardwood-armor-shield-prompt",
-                        "hardwood-armor-unlimited-duration"
-                    ]
-                );
-
-                categorise(
-                    "metal-carapace",
-                    [
-                        "metal-carapace-shield-prompt",
-                        "metal-carapace-unlimited-duration"
-                    ]
-                );
-
-                categorise(
-                    "thermal-nimbus",
-                    [
-                        "thermal-nimbus-apply-damage"
-                    ]
-                );
-
-                categorise(
-                    "timber-sentinel",
-                    [
-                        "timber-sentinel-enable"
-                    ]
+                categories(
+                    {
+                        "armor-in-earth": [
+                            "armor-in-earth-unlimited-duration"
+                        ],
+                        "hardwood-armor": [
+                            "hardwood-armor-shield-prompt",
+                            "hardwood-armor-unlimited-duration"
+                        ],
+                        "ignite-the-sun": [
+                            "ignite-the-sun-enable"
+                        ],
+                        "metal-carapace": [
+                            "metal-carapace-shield-prompt",
+                            "metal-carapace-unlimited-duration"
+                        ],
+                        "thermal-nimbus": [
+                            "thermal-nimbus-apply-damage"
+                        ],
+                        "timber-sentinel": [
+                            "timber-sentinel-enable"
+                        ]
+                    }
                 );
             }
         );
+    }
+
+    static get(setting) {
+        return game.settings.get("pf2e-kineticists-companion", setting);
     }
 }
