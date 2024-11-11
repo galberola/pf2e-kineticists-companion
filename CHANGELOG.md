@@ -1,3 +1,6 @@
+## 1.7.1 - 2024-11-11 (Pathfinder 2e 6.6.2)
+- Update Polish translation.
+
 ## 1.7.0 - 2024-11-10 (Pathfinder 2e 6.6.2)
 - Add automation for Ignite the Sun.
 
