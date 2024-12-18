@@ -170,6 +170,7 @@ export class TimberSentinel {
 
         // Find any adjacent tokens that have the Protector Tree effect
         const protectorTreeTokenIds = canvas.tokens.placeables
+            .filter(token => !!token.actor)
             .filter(protectorToken =>
                 protectorToken.actor.itemTypes.effect.some(effect =>
                     effect.sourceId === PROTECTOR_TREE_EFFECT_ID &&

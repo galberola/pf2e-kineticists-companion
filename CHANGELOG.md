@@ -1,3 +1,6 @@
+## 1.7.2 - 2024-12-18 (Pathfinder 2e 6.7.2)
+- Fix error with Tree Sentinel when a token is missing an actor.
+
 ## 1.7.1 - 2024-11-11 (Pathfinder 2e 6.6.2)
 - Update Polish translation.
 
