@@ -13,7 +13,7 @@
         "key": "ActiveEffectLike",
         "mode": "upgrade",
         "path": "system.proficiencies.defenses.medium.rank",
-        "value": "@actor.system.proficiencies.defenses.light.rank",
+        "value": "@actor.system.proficiencies.defenses.unarmored.rank",
         "predicate": [
           "armor:hardwood-armor"
         ]
@@ -22,7 +22,13 @@
         "key": "ItemAlteration",
         "itemType": "shield",
         "predicate": [
-          "item:hardwood-shield"
+          "item:hardwood-shield",
+          {
+            "gte": [
+              "self:level",
+              4
+            ]
+          }
         ],
         "mode": "add",
         "property": "hardness",
@@ -32,7 +38,13 @@
         "key": "ItemAlteration",
         "itemType": "shield",
         "predicate": [
-          "item:hardwood-shield"
+          "item:hardwood-shield",
+          {
+            "gte": [
+              "self:level",
+              4
+            ]
+          }
         ],
         "mode": "add",
         "property": "hp-max",
@@ -87,9 +99,9 @@
     "duplicateSource": null,
     "coreVersion": "12.331",
     "systemId": "pf2e",
-    "systemVersion": "6.5.1",
+    "systemVersion": "6.8.1",
     "createdTime": 1730242104192,
-    "modifiedTime": 1730247482096,
+    "modifiedTime": 1736340525274,
     "lastModifiedBy": "TrPGLuiZR0lPpyh3"
   },
   "_key": "!items!T5eTAW1TOgDO3Kec"

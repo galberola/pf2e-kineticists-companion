@@ -1,3 +1,8 @@
+## 1.7.3 - 2025-01-08 (Pathfinder 2e 6.8.1)
+- Mark Hardwood Armor and Metal Carapace's effects use unarmored proficiency instead of light.
+- Fix console warnings from Hardwood Armor and Metal Carapace's effects when below level 4.
+- Fix Hardwood Shield's description to link to the Shield Block feat, not the class feature.
+
 ## 1.7.2 - 2024-12-18 (Pathfinder 2e 6.7.2)
 - Fix error with Tree Sentinel when a token is missing an actor.
 
