@@ -1,3 +1,6 @@
+## 2.0.0 - 2025-06-13 (Pathfinder 2e 7.1.1)
+- Fix compatibility issues with Foundry v13.
+
 ## 1.7.3 - 2025-01-08 (Pathfinder 2e 6.8.1)
 - Mark Hardwood Armor and Metal Carapace's effects use unarmored proficiency instead of light.
 - Fix console warnings from Hardwood Armor and Metal Carapace's effects when below level 4.

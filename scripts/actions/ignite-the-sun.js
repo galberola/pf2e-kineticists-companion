@@ -237,7 +237,7 @@ export class IgniteTheSun {
                     return;
                 }
 
-                const scene = encounter.scene;
+                const scene = token.scene;
                 this.#checkAndRollDamage({ scene, token });
             }
         );

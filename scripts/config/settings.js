@@ -117,16 +117,32 @@ export class Settings {
             (_, html) => {
                 const categories = groups => {
                     for (const groupName in groups) {
-                        for (const settingName of groups[groupName]) {
-                            html.find(`div[data-setting-id="pf2e-kineticists-companion.${settingName}"]`)
-                                ?.closest(".form-group")
-                                ?.addClass(groupName);
-                        }
+                        const doc = html.ownerDocument;
 
-                        html.find(`.${groupName}`)
-                            ?.wrapAll(`<fieldset style="border: 1px solid #a1a1a1;"></fieldset>`)
-                            ?.parent()
-                            ?.prepend(`<legend>${game.i18n.localize(`pf2e-kineticists-companion.${groupName}.name`)}</legend>`);
+                        const fieldSet = doc.createElement("fieldset");
+                        fieldSet.style = {
+                            "border": "1 px solid #a1a1a1"
+                        };
+
+                        const legend = doc.createElement("legend");
+                        legend.appendChild(doc.createTextNode(game.i18n.localize(`pf2e-kineticists-companion.${groupName}.name`)));
+                        fieldSet.append(legend);
+
+                        let replaced = false;
+                        for (const settingName of groups[groupName]) {
+                            const group = html.querySelector(`[id="settings-config-pf2e-kineticists-companion.${settingName}"]`)
+                                ?.closest(".form-group");
+
+                            if (group) {
+                                if (!replaced) {
+                                    group.replaceWith(fieldSet);
+                                    replaced = true;
+                                } else {
+                                    group.remove();
+                                }
+                                fieldSet.appendChild(group);
+                            }
+                        }
                     }
                 };
 

@@ -19,7 +19,7 @@ export class Chat {
             {
                 type: CONST.CHAT_MESSAGE_STYLES.EMOTE,
                 speaker: ChatMessage.getSpeaker({ actor }),
-                content: await renderTemplate(
+                content: await foundry.applications.handlebars.renderTemplate(
                     "./systems/pf2e/templates/chat/action/content.hbs",
                     {
                         imgPath,
@@ -92,7 +92,7 @@ export class Chat {
     }
 
     static async #buildDamageMessageFlavour(item, additionalText) {
-        let flavor = await renderTemplate(
+        let flavor = await foundry.applications.handlebars.renderTemplate(
             "systems/pf2e/templates/chat/action/header.hbs",
             {
                 title: item.name,
