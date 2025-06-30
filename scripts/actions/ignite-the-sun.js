@@ -232,7 +232,7 @@ export class IgniteTheSun {
                     return;
                 }
 
-                const token = encounter.combatant.token;
+                const token = encounter.combatant?.token;
                 if (!token) {
                     return;
                 }

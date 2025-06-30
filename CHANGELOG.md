@@ -1,3 +1,8 @@
+## 2.0.1 - 2025-06-30 (Pathfinder 2e 7.2.1)
+- Reinstate Foundry v12 compatibility.
+- Fix error log when removing the last combatant from an encounter.
+- Fix bug with Thermal Nimbus damage not being applied.
+
 ## 2.0.0 - 2025-06-13 (Pathfinder 2e 7.1.1)
 - Fix compatibility issues with Foundry v13.
 

@@ -1,3 +1,5 @@
+import { Util } from "./util.js";
+
 const DamageRoll = CONFIG.Dice.rolls.find((r) => r.name === "DamageRoll");
 
 const actionGlyphMap = {
@@ -19,7 +21,7 @@ export class Chat {
             {
                 type: CONST.CHAT_MESSAGE_STYLES.EMOTE,
                 speaker: ChatMessage.getSpeaker({ actor }),
-                content: await foundry.applications.handlebars.renderTemplate(
+                content: await Util.render(
                     "./systems/pf2e/templates/chat/action/content.hbs",
                     {
                         imgPath,
@@ -92,7 +94,7 @@ export class Chat {
     }
 
     static async #buildDamageMessageFlavour(item, additionalText) {
-        let flavor = await foundry.applications.handlebars.renderTemplate(
+        let flavor = await Util.render(
             "systems/pf2e/templates/chat/action/header.hbs",
             {
                 title: item.name,

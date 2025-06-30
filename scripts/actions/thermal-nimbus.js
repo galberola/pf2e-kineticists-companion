@@ -75,7 +75,7 @@ export class ThermalNimbus {
                 }
 
                 if (game.combat?.current?.tokenId === token.id) {
-                    this.#rollThermalNimbusDamage(item, token);
+                    this.#rollThermalNimbusDamage(item, token.document);
                 }
             }
         );
