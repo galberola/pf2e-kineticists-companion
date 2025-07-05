@@ -1,3 +1,6 @@
+## 2.0.3 - 2025-07-05 (Pathfinder 2e 7.2.2)
+- Use ApplicationV2 on Foundry v13.
+
 ## 2.0.2 - 2025-07-05 (Pathfinder 2e 7.2.2)
 ### Under the Hood
 - Refactored Item Select Dialog into library module.
