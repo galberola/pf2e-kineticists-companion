@@ -1,3 +1,7 @@
+## 2.0.2 - 2025-07-05 (Pathfinder 2e 7.2.2)
+### Under the Hood
+- Refactored Item Select Dialog into library module.
+
 ## 2.0.1 - 2025-06-30 (Pathfinder 2e 7.2.1)
 - Reinstate Foundry v12 compatibility.
 - Fix error log when removing the last combatant from an encounter.
