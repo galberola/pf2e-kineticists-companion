@@ -7,4 +7,4 @@ rm -r packs
 fvtt package pack actors --in packs-source/actors --out packs
 fvtt package pack items --in packs-source/items --out packs
 
-7z u pf2e-kineticists-companion.zip -uq0 assets/ lang/ packs/ scripts/ CHANGELOG.md module.json README.md
+7z u pf2e-kineticists-companion.zip -uq0 assets/ lang/ lib/ packs/ scripts/ CHANGELOG.md module.json README.md
