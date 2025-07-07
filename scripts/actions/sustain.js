@@ -1,4 +1,4 @@
-import * as ItemSelect from "../../../lib-item-select-dialog/scripts/item-select-dialog.js";
+import { Choice, Section } from "../../lib/lib-item-select-dialog-types/types.js";
 import { User } from "../utils/user.js";
 import { Util } from "../utils/util.js";
 
@@ -36,18 +36,17 @@ export class Sustain {
                         return;
                     }
 
-                    ItemSelect.getItem(
+                    CONFIG.itemSelectDialog.getItem(
                         {
                             title: this.localize("prompt.title"),
                             heading: this.localize("prompt.content"),
                             sections: [
-                                new ItemSelect.Section(
+                                new Section(
                                     this.localize("prompt.effect"),
                                     effects.map(
-                                        effect => new ItemSelect.Choice(
+                                        effect => new Choice(
                                             effect.id,
                                             effect.name,
-                                            [],
                                             effect.img,
                                             effect
                                         )

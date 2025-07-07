@@ -1,3 +1,6 @@
+## 2.0.4 - 2025-07-07 (Pathfinder 2e 7.2.2)
+- Fix issue with the Item Select Dialog.
+
 ## 2.0.3 - 2025-07-05 (Pathfinder 2e 7.2.2)
 - Use ApplicationV2 on Foundry v13.
 
