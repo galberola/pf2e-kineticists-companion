@@ -1,3 +1,6 @@
+## 2.1.0 - 2025-07-25 (Pathfinder 2e 7.2.3)
+- Add support for Kindle Inner Flames.
+
 ## 2.0.5 - 2025-07-24 (Pathfinder 2e 7.2.3)
 - Add Chinese (Simplified) translation.
 

@@ -3,6 +3,7 @@ import { DashOfHerbs } from "./actions/dash-of-herbs.js";
 import { FreshProduce } from "./actions/fresh-produce.js";
 import { HardwoodArmor } from "./actions/hardwood-armor.js";
 import { IgniteTheSun } from "./actions/ignite-the-sun.js";
+import { KindleInnerFlames } from "./actions/kindle-inner-flames.js";
 import { MetalCarapace } from "./actions/metal-carapace.js";
 import { OceansBalm } from "./actions/oceans-balm.js";
 import { Sustain } from "./actions/sustain.js";
@@ -38,6 +39,7 @@ Hooks.on(
         // Fire
         ThermalNimbus.initialise();
         IgniteTheSun.initialise();
+        KindleInnerFlames.initialise();
 
         // Metal
         MetalCarapace.initialise();

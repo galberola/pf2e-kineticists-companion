@@ -2,7 +2,7 @@
 A module for the Foundry VTT Pathfinder 2e system that provides improved automation for the Kineticist class.
 
 ![Github All Releases](https://img.shields.io/github/downloads/JDCalvert/pf2e-kineticists-companion/total.svg)
-![Github Latest Release](https://img.shields.io/github/downloads/JDCalvert/pf2e-kineticists-companion/2.0.5/total)
+![Github Latest Release](https://img.shields.io/github/downloads/JDCalvert/pf2e-kineticists-companion/2.1.0/total)
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/jdcalvert)
 
@@ -52,6 +52,9 @@ When you create or sustain the sun, and there are tokens inside its template (wi
         <li><a href="https://github.com/reonZ/pf2e-toolbelt">PF2e Toolbelt</a> with Target Helper enabled.</li>
     </ul>
 </small>
+
+### Kindle Inner Flames
+When affected by Kindle Inner Flames, the effect will add a toggleable roll option to enable the additional fire damage (or flaming rune effect). If the Kineticist has the Fire Aura Junction, and the target of the Strike is within in the Kineticist's aura, the target will be weak to the fire damage dealt by the Kineticist's allies' Strikes.
 
 ### Thermal Nimbus
 When you use the Thermal Nimbus stance, enemies inside the aura receive the **Effect: Thermal Nimbus Damage** effect. If an enemy is inside the aura at the start of its turn, or they move into the aura during their turn, the Thermal Nimbus damage is automatically rolled and applied to that enemy.
