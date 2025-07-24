@@ -1,3 +1,6 @@
+## 2.0.5 - 2025-07-24 (Pathfinder 2e 7.2.3)
+- Add Chinese (Simplified) translation.
+
 ## 2.0.4 - 2025-07-07 (Pathfinder 2e 7.2.2)
 - Fix issue with the Item Select Dialog.
 
