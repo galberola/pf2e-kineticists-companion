@@ -1,3 +1,6 @@
+## 2.1.1 - 2025-08-05 (Pathfinder 2e 7.3.1)
+- Make armor impulses' armor size match the actor size.
+
 ## 2.1.0 - 2025-07-25 (Pathfinder 2e 7.2.3)
 - Add support for Kindle Inner Flames.
 

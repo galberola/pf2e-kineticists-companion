@@ -48,8 +48,23 @@ export class ArmorImpulse {
                     "runes": actor.wornArmor._source.system.runes
                 };
 
-                armorSource.flags["pf2e-kineticists-companion"] = { "previous-armor": previousArmorData };
-                armorSource.system.runes = previousArmorData.runes;
+                foundry.utils.mergeObject(
+                    armorSource,
+                    {
+                        flags: {
+                            "pf2e-kineticists-companion": {
+                                "previous-armor": previousArmorData
+                            }
+                        },
+                        system: {
+                            runes: previousArmorData.runes
+                        }
+                    }
+                );
+            }
+
+            if (actor.size !== "sm") {
+                armorSource.system.size = actor.size;
             }
 
             creates.push(armorSource);
