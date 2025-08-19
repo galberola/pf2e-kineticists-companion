@@ -49,6 +49,16 @@
         "mode": "add",
         "property": "hp-max",
         "value": "floor((@actor.level - 1) / 3) * 4"
+      },
+      {
+        "key": "ItemAlteration",
+        "itemType": "shield",
+        "predicate": [
+          "feature:blessed-shield"
+        ],
+        "mode": "add",
+        "property": "runes-reinforcing",
+        "value": "max(1, floor((@actor.level - 1) / 3))"
       }
     ],
     "slug": "effect-hardwood-armor",
